@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cerrajería Gandía | Cerrajero 24 horas</title>
+  <meta name="description" content="Cerrajería en Gandía. Apertura de puertas, urgencias 24 horas, cambio de cerraduras y servicios de cerrajería profesional en Gandía y La Safor." />
+  <meta name="theme-color" content="#101820" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://www.cerrajeriadelpuertogandia.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:title" content="Cerrajero 24h en Gandía y La Safor | Cerrajería del Puerto" />
+  <meta property="og:description" content="Cerrajero local 24 horas en Gandía, Playa de Gandía y La Safor. Apertura de puertas, cambio de cerraduras y urgencias." />
+  <meta property="og:url" content="https://www.cerrajeriadelpuertogandia.com/" />
+  <meta name="twitter:card" content="summary" />
+  <style>
+    :root{
+      --ink:#101820;
+      --ink-2:#18242e;
+      --paper:#f7f5f0;
+      --white:#fff;
+      --accent:#f0b323;
+      --accent-2:#ffd56a;
+      --muted:#66727c;
+      --line:#dfe3e6;
+      --ok:#1f7a4d;
+      --shadow:0 18px 50px rgba(16,24,32,.12);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--paper);line-height:1.55}
+    a{color:inherit}
+    .wrap{width:min(1140px,calc(100% - 36px));margin:auto}
+    .topbar{background:#0b1117;color:#dce3e9;font-size:.9rem;text-align:center;padding:9px 12px}
+    .topbar strong{color:white}
+    header{position:sticky;top:0;z-index:20;background:rgba(247,245,240,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(16,24,32,.08)}
+    nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:850;letter-spacing:-.02em}
+    .brandmark{width:42px;height:42px;border-radius:12px;background:var(--ink);display:grid;place-items:center;color:var(--accent);box-shadow:0 8px 18px rgba(16,24,32,.15)}
+    .brandmark svg{width:24px;height:24px}
+    .brand small{display:block;font-size:.69rem;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:750;margin-top:-2px}
+    .navlinks{display:flex;align-items:center;gap:22px;font-weight:680;font-size:.95rem}
+    .navlinks a{text-decoration:none}
+    .call-sm{padding:12px 16px;border-radius:12px;background:var(--ink);color:white!important;display:inline-flex;align-items:center;gap:8px}
+    .hero{position:relative;overflow:hidden;background:var(--ink);color:white;padding:74px 0 54px}
+    .hero:before{content:"";position:absolute;right:-180px;top:-230px;width:680px;height:680px;border-radius:50%;border:120px solid rgba(240,179,35,.07)}
+    .hero-grid{position:relative;display:grid;grid-template-columns:1.18fr .82fr;gap:58px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);padding:8px 11px;border-radius:999px;color:#dfe7ec;font-size:.86rem;font-weight:720}
+    .dot{width:8px;height:8px;border-radius:50%;background:#49d17d;box-shadow:0 0 0 5px rgba(73,209,125,.13)}
+    h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.97;letter-spacing:-.055em;margin:24px 0 22px;max-width:850px}
+    .hero p{font-size:clamp(1.03rem,1.7vw,1.25rem);color:#c8d0d6;max-width:690px;margin:0 0 30px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;border-radius:14px;padding:16px 20px;font-weight:850;border:1px solid transparent;transition:.18s ease;min-height:56px}
+    .btn-primary{background:var(--accent);color:#15191c;box-shadow:0 10px 28px rgba(240,179,35,.22)}
+    .btn-primary:hover{transform:translateY(-1px);background:var(--accent-2)}
+    .btn-secondary{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:white}
+    .proofline{display:flex;gap:20px;flex-wrap:wrap;margin-top:26px;color:#b6c0c7;font-size:.92rem}
+    .proofline span{display:flex;align-items:center;gap:7px}
+    .proofline b{color:white}
+    .urgency-card{background:#fff;color:var(--ink);border-radius:28px;padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.25)}
+    .urgency-card .label{font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;font-weight:850;color:var(--muted)}
+    .urgency-card h2{font-size:2rem;line-height:1.06;letter-spacing:-.035em;margin:10px 0 10px}
+    .urgency-card p{color:var(--muted);font-size:.98rem;margin:0 0 18px}
+    .phonebox{background:#f4f6f7;border:1px solid var(--line);border-radius:16px;padding:15px 16px;margin:18px 0 12px}
+    .phonebox small{display:block;color:var(--muted);font-weight:700;margin-bottom:3px}
+    .phonebox a{font-size:1.65rem;font-weight:900;text-decoration:none;letter-spacing:-.03em}
+    .mini{font-size:.82rem!important;color:var(--muted)!important;margin:10px 0 0!important}
+    .section{padding:82px 0}
+    .section.white{background:white}
+    .section-head{max-width:720px;margin-bottom:34px}
+    .kicker{font-size:.78rem;text-transform:uppercase;letter-spacing:.13em;font-weight:850;color:#8a6513}
+    h2.section-title{font-size:clamp(2rem,4vw,3.4rem);line-height:1.03;letter-spacing:-.045em;margin:9px 0 14px}
+    .section-head p{color:var(--muted);font-size:1.05rem;margin:0}
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .step{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:27px;box-shadow:0 9px 24px rgba(16,24,32,.04)}
+    .num{width:38px;height:38px;border-radius:11px;background:var(--accent);display:grid;place-items:center;font-weight:900;margin-bottom:22px}
+    .step h3,.service h3{font-size:1.17rem;margin:0 0 8px;letter-spacing:-.02em}
+    .step p,.service p{margin:0;color:var(--muted)}
+    .services{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .price-promise{margin-top:16px;background:var(--ink);color:white;border-radius:var(--radius);padding:25px 28px;display:flex;align-items:center;gap:18px}
+    .price-promise .num{margin:0;flex:0 0 38px}
+    .price-promise h3{margin:0 0 4px;font-size:1.17rem}
+    .price-promise p{margin:0;color:#ced6dc}
+    .service{background:#f8f7f3;border:1px solid var(--line);border-radius:var(--radius);padding:25px}
+    .icon{width:46px;height:46px;border-radius:13px;background:var(--ink);color:var(--accent);display:grid;place-items:center;margin-bottom:22px}
+    .icon svg{width:23px;height:23px}
+    .reviews-summary{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;margin-bottom:24px;padding:18px 20px;background:#f8f7f3;border:1px solid var(--line);border-radius:18px}
+    .reviews-summary .stars{font-size:1.18rem;letter-spacing:.06em;color:#e7a500;font-weight:900}
+    .reviews-summary strong{display:block;font-size:1.05rem;margin-top:2px}
+    .reviews-summary p{margin:2px 0 0;color:var(--muted);font-size:.92rem}
+    .google-link{font-weight:820;text-decoration:none;border-bottom:1px solid rgba(16,24,32,.25)}
+    .reviews{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .review{background:white;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 9px 24px rgba(16,24,32,.04);display:flex;flex-direction:column;min-height:210px}
+    .review-stars{color:#e7a500;letter-spacing:.04em;font-size:.96rem;margin-bottom:14px}
+    .review blockquote{margin:0;color:#27323a;font-size:.99rem;line-height:1.55;flex:1}
+    .review footer{background:none;color:var(--muted);padding:18px 0 0;font-size:.86rem}
+    .review footer strong{color:var(--ink);display:block;font-size:.92rem}
+    .google-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--muted);margin-top:4px}
+    .geo-copy{margin-top:24px;color:var(--muted);font-size:.96rem;max-width:900px}
+    .trust{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:stretch}
+    .trust-panel,.local{height:100%;box-sizing:border-box}
+    .trust-panel{background:var(--ink);color:white;border-radius:28px;padding:34px}
+    .trust-panel h3{font-size:1.55rem;margin:0 0 18px;letter-spacing:-.025em}
+    .checks{display:grid;gap:13px}
+    .check{display:flex;align-items:flex-start;gap:11px;color:#ced6dc}
+    .check svg{flex:0 0 20px;margin-top:2px;color:var(--accent)}
+    .local{background:linear-gradient(135deg,#f5e5b2,#f7f5f0);border:1px solid #e8d69f;border-radius:28px;padding:36px}
+    .local h3{font-size:2rem;line-height:1.05;margin:0 0 12px;letter-spacing:-.035em}
+    .areas{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+    .areas span{background:rgba(255,255,255,.67);border:1px solid rgba(16,24,32,.08);padding:8px 11px;border-radius:999px;font-size:.9rem;font-weight:700}
+    .faq{max-width:850px}
+    details{background:white;border:1px solid var(--line);border-radius:16px;padding:0 20px;margin:10px 0}
+    summary{cursor:pointer;list-style:none;font-weight:820;padding:19px 0}
+    summary::-webkit-details-marker{display:none}
+    details p{color:var(--muted);margin:0;padding:0 0 20px}
+    .cta{background:var(--accent);padding:54px 0}
+    .cta-row{display:flex;justify-content:space-between;align-items:center;gap:30px}
+    .cta h2{font-size:clamp(2rem,4vw,3rem);line-height:1.04;margin:0 0 8px;letter-spacing:-.04em}
+    .cta p{margin:0;color:#4c3a10}
+    .cta .btn{background:var(--ink);color:white;white-space:nowrap}
+    footer{background:#0b1117;color:#aeb8c0;padding:34px 0 90px;font-size:.9rem}
+    .footer-row{display:flex;justify-content:space-between;gap:30px;align-items:flex-start}
+    footer strong{color:white}
+    footer a{color:white;text-decoration:none}
+    .mobile-bar{display:none}
+    @media (max-width:860px){
+      .navlinks a:not(.call-sm){display:none}
+      .hero{padding:54px 0 42px}
+      .hero-grid,.trust{grid-template-columns:1fr}
+      .hero-grid{gap:34px}
+      .steps,.services,.reviews{grid-template-columns:1fr 1fr}
+      .section{padding:62px 0}
+      .cta-row,.footer-row{display:block}
+      .cta .btn{margin-top:22px;width:100%}
+      footer{padding-bottom:104px}
+      .mobile-bar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:10px;right:10px;bottom:10px;z-index:50;background:white;border:1px solid rgba(16,24,32,.12);box-shadow:0 12px 40px rgba(16,24,32,.22);border-radius:17px;padding:8px;gap:8px}
+      .mobile-bar a{height:52px;border-radius:12px;text-decoration:none;display:flex;align-items:center;justify-content:center;font-weight:900;gap:8px}
+      .mobile-bar .tel{background:var(--accent);color:var(--ink)}
+      .mobile-bar .wa{background:var(--ink);color:white}
+    }
+    @media (max-width:520px){
+      .wrap{width:min(100% - 26px,1140px)}
+      nav{height:66px}
+      .brand{font-size:.92rem}.brandmark{width:37px;height:37px}
+      .call-sm{padding:10px 12px;font-size:.85rem}
+      h1{font-size:3.05rem}
+      .hero p{font-size:1rem}
+      .urgency-card{padding:22px;border-radius:22px}
+      .phonebox a{font-size:1.42rem}
+      .section-title{font-size:2.35rem!important}
+      .steps,.services,.reviews{grid-template-columns:1fr}
+      .price-promise{align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar"><strong>Cerrajero de urgencias 24h</strong> · Gandía, Playa de Gandía y La Safor</div>
+  <header>
+    <div class="wrap">
+      <nav>
+        <a class="brand" href="#inicio" aria-label="Cerrajería del Puerto Gandía">
+          <span class="brandmark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8m-2 2 2 2m-5 1 2 2"/></svg>
+          </span>
+          <span>Cerrajería del Puerto<small>Gandía · La Safor</small></span>
+        </a>
+        <div class="navlinks">
+          <a href="#servicios">Servicios</a>
+          <a href="#opiniones">Opiniones</a>
+          <a href="#zona">Zona de servicio</a>
+          <a href="#faq">Preguntas</a>
+          <a class="call-sm" href="tel:+34687929669">☎ 687 929 669</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow"><span class="dot"></span> Disponible para urgencias 24 horas</span>
+          <h1>¿Te has quedado fuera?</h1>
+          <p>Cerrajero local en Gandía y La Safor. Apertura de puertas, cerraduras bloqueadas y urgencias 24h. Hablas directamente con el profesional que va a atenderte.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="tel:+34687929669">☎ Llamar ahora · 687 929 669</a>
+            <a class="btn btn-secondary" href="https://wa.me/34687929669?text=Hola%2C%20necesito%20un%20cerrajero%20en%20La%20Safor.%20Te%20env%C3%ADo%20una%20foto%20de%20la%20cerradura." target="_blank" rel="noopener">Enviar foto por WhatsApp</a>
+          </div>
+          <div class="proofline">
+            <span>★ <b>4,8/5 en Google</b> · 180 reseñas</span>
+            <span>✓ <b>Más de 20 años</b> de experiencia</span>
+            <span>✓ Atención directa</span>
+            <span>✓ Gandía y comarca</span>
+          </div>
+        </div>
+        <aside class="urgency-card" aria-label="Contacto urgente">
+          <div class="label">¿Es una urgencia?</div>
+          <h2>Cuéntame qué ha pasado</h2>
+          <p>Una puerta que no abre no necesita formularios. Llámame o mándame una foto de la cerradura y te digo cómo podemos resolverlo.</p>
+          <div class="phonebox">
+            <small>Teléfono 24h</small>
+            <a href="tel:+34687929669">687 929 669</a>
+          </div>
+          <a class="btn btn-primary" style="width:100%" href="tel:+34687929669">Llamar al cerrajero</a>
+          <p class="mini">Servicio de cerrajería en Gandía, Grau y Playa, Oliva y municipios de La Safor.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Rápido y sencillo</span>
+          <h2 class="section-title">Si tienes una urgencia, esto es lo que necesitas saber.</h2>
+          <p>Sin textos comerciales interminables. Contactas, explicas el problema y recibes una solución clara.</p>
+        </div>
+        <div class="steps">
+          <article class="step"><div class="num">1</div><h3>Llama o envía una foto</h3><p>Explica dónde estás y qué ocurre con la puerta, cerradura o bombín.</p></article>
+          <article class="step"><div class="num">2</div><h3>Valoramos la intervención</h3><p>Con la información disponible identificamos la solución y te explicamos el coste antes de realizar el trabajo.</p></article>
+          <article class="step"><div class="num">3</div><h3>Nos desplazamos hasta ti</h3><p>Atención en Gandía, Playa de Gandía y municipios de la comarca de La Safor.</p></article>
+          <article class="step"><div class="num">4</div><h3>Resolvemos el problema</h3><p>Realizamos el trabajo buscando siempre la solución adecuada y, cuando es posible, evitando daños innecesarios.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white" id="servicios">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Servicios de cerrajería</span>
+          <h2 class="section-title">Lo habitual. Bien hecho.</h2>
+          <p>Servicios para viviendas, apartamentos, comunidades y pequeños negocios.</p>
+        </div>
+        <div class="services">
+          <article class="service"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-8h6v8"/></svg></div><h3>Apertura de puertas</h3><p>Puertas cerradas, llaves olvidadas o problemas de acceso en viviendas y negocios.</p></article>
+          <article class="service"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="3.5"/><path d="M10 13l9-9m-2 2 2 2m-5 1 2 2"/></svg></div><h3>Cambio de cerraduras y bombines</h3><p>Sustitución por avería, pérdida de llaves, mudanza o mejora de seguridad.</p></article>
+          <article class="service"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 .9-4.5 4.4 1 6.2L12 16.7 6.5 19.5l1-6.2L3 8.9 9 8z"/></svg></div><h3>Cerrajero urgente 24h</h3><p>Atención fuera de horario cuando el problema no puede esperar al día siguiente.</p></article>
+        </div>
+        <div class="price-promise">
+          <div class="num">€</div>
+          <div><h3>Precio claro antes de empezar</h3><p>Antes de realizar el trabajo te explicamos qué hay que hacer y su coste. Sin intermediarios y sin sorpresas al terminar.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="opiniones">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Opiniones reales</span>
+          <h2 class="section-title">La confianza importa más cuando tienes una urgencia.</h2>
+          <p>La confianza de nuestros clientes es nuestra mejor garantía. Consulta sus experiencias y descubre por qué tantos clientes de Gandía y La Safor confían en nosotros.</p>
+        </div>
+
+        <div class="reviews-summary">
+          <div>
+            <div class="stars" aria-label="Valoración de 4,8 sobre 5 en Google">★★★★★</div>
+            <strong>4,8/5 en Google · Más de 180 reseñas</strong>
+            <p>La valoración pública de Cerrajería del Puerto en Google.</p>
+          </div>
+          <a class="google-link" href="https://www.google.com/maps/search/?api=1&query=Cerrajeria+del+Puerto+Gandia&query_place_id=ChIJp7hPn9DDYQ0RQhFlBpHeOuo" target="_blank" rel="noopener noreferrer">Ver en Google →</a>
+        </div>
+
+        <div class="reviews">
+          <article class="review">
+            <div class="review-stars" aria-hidden="true">★★★★★</div>
+            <blockquote>“Muy buena y rápida atención. Gustavo ha sido muy amable y nos ha sugerido lo mejor de acuerdo a nuestras necesidades.”</blockquote>
+            <footer><strong>Claudia</strong><span class="google-badge">Opinión en Google</span></footer>
+          </article>
+          <article class="review">
+            <div class="review-stars" aria-hidden="true">★★★★★</div>
+            <blockquote>“Buen profesional y buen trabajo. Gustavo además muy amable. Si necesito un cerrajero no dudo en volver a repetir.”</blockquote>
+            <footer><strong>Fernando Navarro</strong><span class="google-badge">Opinión en Google</span></footer>
+          </article>
+          <article class="review">
+            <div class="review-stars" aria-hidden="true">★★★★★</div>
+            <blockquote>“Llamamos a Gustavo, vino rápido, fue muy amable y profesional. Nos abrió la puerta y cambió la cerradura en poco tiempo.”</blockquote>
+            <footer><strong>Enrique</strong><span class="google-badge">Opinión en Google</span></footer>
+          </article>
+          <article class="review">
+            <div class="review-stars" aria-hidden="true">★★★★★</div>
+            <blockquote>“Muy buen profesional. Puntual y eficiente.”</blockquote>
+            <footer><strong>Vicente Puig</strong><span class="google-badge">Opinión en Google</span></footer>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="zona">
+      <div class="wrap trust">
+        <div class="trust-panel">
+          <h3>Por qué llamar a un cerrajero local</h3>
+          <div class="checks">
+            <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Hablas directamente con el profesional.</strong> No con una central que deriva avisos.</span></div>
+            <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Conocimiento de la zona.</strong> Gandía, Grau, Playa y el resto de La Safor.</span></div>
+            <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Más de 20 años de experiencia.</strong> El oficio importa cuando quieres resolver sin complicaciones.</span></div>
+            <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Atención 24 horas para urgencias.</strong> También noches, fines de semana y festivos.</span></div>
+            <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Precio justo y sin intermediarios.</strong> Tratas directamente con el cerrajero que realiza el trabajo.</span></div>
+          </div>
+        </div>
+        <div class="local">
+          <span class="kicker">Cerrajero en La Safor</span>
+          <h3>Estamos aquí. No a 70 km.</h3>
+          <p>Cerrajería del Puerto es un cerrajero local con base en Gandía que presta servicio de urgencias 24 horas en Gandía, Grau y Playa de Gandía y municipios de La Safor. Especializado en apertura de puertas, cambio de cerraduras y bombines y servicios de cerrajería urgente.</p>
+          <div class="areas">
+            <span>Gandía</span><span>Grau de Gandía</span><span>Playa de Gandía</span><span>Oliva</span><span>Bellreguard</span><span>Miramar</span><span>Daimús</span><span>Guardamar de la Safor</span><span>Xeraco</span><span>Tavernes de la Valldigna</span><span>La Safor</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white" id="faq">
+      <div class="wrap faq">
+        <div class="section-head">
+          <span class="kicker">Preguntas frecuentes</span>
+          <h2 class="section-title">Antes de llamar.</h2>
+        </div>
+        <details><summary>¿Atendéis urgencias de cerrajería las 24 horas?</summary><p>Sí. Las urgencias se atienden las 24 horas en Gandía y la comarca de La Safor.</p></details>
+        <details><summary>¿Puedo enviar una foto de la cerradura?</summary><p>Sí. Puedes enviarla por WhatsApp al 687 929 669. Una foto ayuda a entender mejor el tipo de cerradura y el problema.</p></details>
+        <details><summary>¿Abrís puertas de viviendas y negocios?</summary><p>Sí. Se realizan aperturas y trabajos de cerrajería tanto en viviendas como en pequeños negocios y comunidades.</p></details>
+        <details><summary>¿Trabajáis en Playa de Gandía y pueblos de La Safor?</summary><p>Sí. El servicio cubre Gandía, Grau y Playa de Gandía y distintos municipios de la comarca como Oliva, Bellreguard, Miramar, Daimús, Xeraco o Tavernes de la Valldigna.</p></details>
+        <details><summary>¿Se puede abrir una puerta sin romperla?</summary><p>Depende del tipo de puerta, cerradura y avería. Siempre se valora primero la opción menos invasiva adecuada para cada caso.</p></details>
+        <details><summary>¿Atendéis de madrugada, fines de semana y festivos?</summary><p>Sí. El servicio de urgencias está disponible 24 horas, también fuera del horario comercial habitual.</p></details>
+        <details><summary>¿Me indicáis el precio antes de hacer el trabajo?</summary><p>Sí. Antes de realizar el trabajo te explicamos la intervención y su coste para que puedas decidir con claridad.</p></details>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap cta-row">
+        <div><h2>¿Necesitas un cerrajero ahora?</h2><p>Llama directamente. Si puedes, ten preparada una foto de la cerradura.</p></div>
+        <a class="btn" href="tel:+34687929669">☎ 687 929 669</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div><strong>Cerrajería del Puerto Gandía</strong><br>Servicio de cerrajería en Gandía y La Safor.<br><a href="https://www.facebook.com/cerrajeriadelpuertogandia/?locale=es_ES" target="_blank" rel="noopener noreferrer">Facebook</a> · <a href="https://www.instagram.com/cerrajeriadelpuerto/" target="_blank" rel="noopener noreferrer">Instagram</a></div>
+      <div><a href="tel:+34687929669">687 929 669</a><br>Carrer Rei, 4 · Grau i Platja · Gandía</div>
+    </div>
+  </footer>
+
+  <div class="mobile-bar" aria-label="Contacto rápido">
+    <a class="tel" href="tel:+34687929669">☎ Llamar ahora</a>
+    <a class="wa" href="https://wa.me/34687929669?text=Hola%2C%20necesito%20un%20cerrajero.%20Te%20env%C3%ADo%20una%20foto%20de%20la%20cerradura." target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":["Locksmith","LocalBusiness"],
+        "@id":"https://www.cerrajeriadelpuertogandia.com/#business",
+        "name":"Cerrajería del Puerto Gandía",
+        "url":"https://www.cerrajeriadelpuertogandia.com/",
+        "telephone":"+34687929669",
+        "description":"Cerrajero local 24 horas en Gandía, Playa de Gandía y La Safor. Apertura de puertas, cambio de cerraduras y bombines y urgencias de cerrajería.",
+        "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"180","bestRating":"5","worstRating":"1"},
+        "address":{
+          "@type":"PostalAddress",
+          "streetAddress":"Carrer Rei, 4",
+          "postalCode":"46730",
+          "addressLocality":"Gandía",
+          "addressRegion":"Valencia",
+          "addressCountry":"ES"
+        },
+        "areaServed":[
+          {"@type":"City","name":"Gandía"},
+          {"@type":"Place","name":"Playa de Gandía"},
+          {"@type":"Place","name":"Grau de Gandía"},
+          {"@type":"AdministrativeArea","name":"La Safor"},
+          {"@type":"City","name":"Oliva"},
+          {"@type":"City","name":"Bellreguard"},
+          {"@type":"City","name":"Miramar"},
+          {"@type":"City","name":"Daimús"},
+          {"@type":"City","name":"Xeraco"},
+          {"@type":"City","name":"Tavernes de la Valldigna"}
+        ],
+        "openingHoursSpecification":{
+          "@type":"OpeningHoursSpecification",
+          "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+          "opens":"00:00",
+          "closes":"23:59"
+        },
+        "sameAs":[
+          "https://www.google.com/maps/search/?api=1&query=Cerrajeria+del+Puerto+Gandia&query_place_id=ChIJp7hPn9DDYQ0RQhFlBpHeOuo",
+          "https://www.facebook.com/cerrajeriadelpuertogandia/",
+          "https://www.instagram.com/cerrajeriadelpuerto/"
+        ]
+      },
+      {
+        "@type":"WebSite",
+        "@id":"https://www.cerrajeriadelpuertogandia.com/#website",
+        "url":"https://www.cerrajeriadelpuertogandia.com/",
+        "name":"Cerrajería del Puerto Gandía",
+        "inLanguage":"es-ES",
+        "publisher":{"@id":"https://www.cerrajeriadelpuertogandia.com/#business"}
+      },
+      {
+        "@type":"FAQPage",
+        "@id":"https://www.cerrajeriadelpuertogandia.com/#faq",
+        "mainEntity":[
+          {"@type":"Question","name":"¿Atendéis urgencias de cerrajería las 24 horas?","acceptedAnswer":{"@type":"Answer","text":"Sí. Las urgencias se atienden las 24 horas en Gandía y la comarca de La Safor."}},
+          {"@type":"Question","name":"¿Puedo enviar una foto de la cerradura?","acceptedAnswer":{"@type":"Answer","text":"Sí. Puedes enviarla por WhatsApp al 687 929 669. Una foto ayuda a entender mejor el tipo de cerradura y el problema."}},
+          {"@type":"Question","name":"¿Abrís puertas de viviendas y negocios?","acceptedAnswer":{"@type":"Answer","text":"Sí. Se realizan aperturas y trabajos de cerrajería tanto en viviendas como en pequeños negocios y comunidades."}},
+          {"@type":"Question","name":"¿Trabajáis en Playa de Gandía y pueblos de La Safor?","acceptedAnswer":{"@type":"Answer","text":"Sí. El servicio cubre Gandía, Grau y Playa de Gandía y distintos municipios de la comarca como Oliva, Bellreguard, Miramar, Daimús, Xeraco o Tavernes de la Valldigna."}},
+          {"@type":"Question","name":"¿Se puede abrir una puerta sin romperla?","acceptedAnswer":{"@type":"Answer","text":"Depende del tipo de puerta, cerradura y avería. Siempre se valora primero la opción menos invasiva adecuada para cada caso."}},
+          {"@type":"Question","name":"¿Atendéis de madrugada, fines de semana y festivos?","acceptedAnswer":{"@type":"Answer","text":"Sí. El servicio de urgencias está disponible 24 horas, también fuera del horario comercial habitual."}},
+          {"@type":"Question","name":"¿Me indicáis el precio antes de hacer el trabajo?","acceptedAnswer":{"@type":"Answer","text":"Sí. Antes de realizar el trabajo te explicamos la intervención y su coste para que puedas decidir con claridad."}}
+        ]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>
