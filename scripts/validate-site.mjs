@@ -9,10 +9,10 @@ const dist = path.join(root, 'dist');
 const publicFiles = ['robots.txt', 'sitemap.xml', 'llms.txt', 'CNAME'];
 const pages = [
   { name: 'Home', fixture: 'index.html', output: 'index.html', url: 'https://www.cerrajeriadelpuertogandia.com/' },
-  { name: 'Gandía', fixture: 'gandia.html', output: 'gandia/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/gandia/' },
-  { name: 'Playa de Gandía', fixture: 'playa-de-gandia.html', output: 'playa-de-gandia/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/playa-de-gandia/' },
-  { name: 'Oliva', fixture: 'oliva.html', output: 'oliva/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/oliva/' },
-  { name: 'Playa de Oliva', fixture: 'playa-de-oliva.html', output: 'playa-de-oliva/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/playa-de-oliva/' },
+  { name: 'Gandía', fixture: 'gandia.html', output: 'gandia/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/gandia/', validateFaq: true },
+  { name: 'Playa de Gandía', fixture: 'playa-de-gandia.html', output: 'playa-de-gandia/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/playa-de-gandia/', validateFaq: true },
+  { name: 'Oliva', fixture: 'oliva.html', output: 'oliva/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/oliva/', validateFaq: true },
+  { name: 'Playa de Oliva', fixture: 'playa-de-oliva.html', output: 'playa-de-oliva/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/playa-de-oliva/', validateFaq: true },
   { name: 'Tavernes de la Valldigna', fixture: 'tavernes-de-la-valldigna.html', output: 'tavernes-de-la-valldigna/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/tavernes-de-la-valldigna/', validateFaq: true },
   { name: 'Xeraco', fixture: 'xeraco.html', output: 'xeraco/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/xeraco/', validateFaq: true },
 ];
