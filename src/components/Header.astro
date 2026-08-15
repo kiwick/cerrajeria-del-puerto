@@ -4,9 +4,15 @@ import { business } from '../data/business';
 interface Props {
   brandHref: string;
   subtitle: string;
+  navLinks?: { href: string; label: string }[];
 }
 
-const { brandHref, subtitle } = Astro.props;
+const { brandHref, subtitle, navLinks = [
+  { href: '#servicios', label: 'Servicios' },
+  { href: '#opiniones', label: 'Opiniones' },
+  { href: '#zona', label: 'Zona de servicio' },
+  { href: '#faq', label: 'Preguntas' },
+] } = Astro.props;
 ---
 
 <header>
@@ -19,10 +25,7 @@ const { brandHref, subtitle } = Astro.props;
         <span>{business.shortName}<small>{subtitle}</small></span>
       </a>
       <div class="navlinks">
-        <a href="#servicios">Servicios</a>
-        <a href="#opiniones">Opiniones</a>
-        <a href="#zona">Zona de servicio</a>
-        <a href="#faq">Preguntas</a>
+        {navLinks.map(({ href, label }) => <><a href={href}>{label}</a>{' '}</>)}
         <a class="call-sm" href={`tel:${business.phone.e164}`}>☎ {business.phone.display}</a>
       </div>
     </nav>
