@@ -1,0 +1,127 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "Locksmith",
+        "LocalBusiness"
+      ],
+      "@id": "https://www.cerrajeriadelpuertogandia.com/#business",
+      "name": "Cerrajería del Puerto Gandía",
+      "url": "https://www.cerrajeriadelpuertogandia.com/",
+      "telephone": "+34687929669",
+      "description": "Cerrajería familiar con más de 20 años de experiencia. Cerrajero local 24 horas en Gandía, Playa de Gandía y La Safor. Apertura de puertas, cambio de cerraduras y bombines y urgencias de cerrajería.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Carrer Rei, 4",
+        "postalCode": "46730",
+        "addressLocality": "Gandía",
+        "addressRegion": "Valencia",
+        "addressCountry": "ES"
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Gandía" },
+        { "@type": "Place", "name": "Playa de Gandía" },
+        { "@type": "Place", "name": "Grau de Gandía" },
+        { "@type": "AdministrativeArea", "name": "La Safor" },
+        { "@type": "City", "name": "Oliva" },
+        { "@type": "City", "name": "Bellreguard" },
+        { "@type": "City", "name": "Miramar" },
+        { "@type": "City", "name": "Daimús" },
+        { "@type": "City", "name": "Xeraco" },
+        { "@type": "City", "name": "Tavernes de la Valldigna" }
+      ],
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      },
+      "sameAs": [
+        "https://www.google.com/maps/search/?api=1&query=Cerrajeria+del+Puerto+Gandia&query_place_id=ChIJp7hPn9DDYQ0RQhFlBpHeOuo",
+        "https://www.facebook.com/cerrajeriadelpuertogandia/",
+        "https://www.instagram.com/cerrajeriadelpuerto/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.cerrajeriadelpuertogandia.com/#website",
+      "url": "https://www.cerrajeriadelpuertogandia.com/",
+      "name": "Cerrajería del Puerto Gandía",
+      "inLanguage": "es-ES",
+      "publisher": {
+        "@id": "https://www.cerrajeriadelpuertogandia.com/#business"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.cerrajeriadelpuertogandia.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Atendéis urgencias de cerrajería las 24 horas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Las urgencias se atienden las 24 horas en Gandía y la comarca de La Safor."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Puedo enviar una foto de la cerradura?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Puedes enviarla por WhatsApp al 687 929 669. Una foto ayuda a entender mejor el tipo de cerradura y el problema."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Abrís puertas de viviendas y negocios?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Se realizan aperturas y trabajos de cerrajería tanto en viviendas como en pequeños negocios y comunidades."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Trabajáis en Playa de Gandía y pueblos de La Safor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. El servicio cubre Gandía, Grau y Playa de Gandía y distintos municipios de la comarca como Oliva, Bellreguard, Miramar, Daimús, Xeraco o Tavernes de la Valldigna."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Se puede abrir una puerta sin romperla?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depende del tipo de puerta, cerradura y avería. Siempre se valora primero la opción menos invasiva adecuada para cada caso."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Atendéis de madrugada, fines de semana y festivos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. El servicio de urgencias está disponible 24 horas, también fuera del horario comercial habitual."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Me indicáis el precio antes de hacer el trabajo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Antes de realizar el trabajo te explicamos la intervención y su coste para que puedas decidir con claridad."
+          }
+        }
+      ]
+    }
+  ]
+}

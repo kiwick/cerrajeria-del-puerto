@@ -1,0 +1,53 @@
+---
+import '../styles/global.css';
+
+interface OpenGraph {
+  type: string;
+  locale: string;
+  title: string;
+  description: string;
+  url: string;
+}
+
+interface TwitterMetadata {
+  card: string;
+  title?: string;
+  description?: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  robots: string;
+  openGraph: OpenGraph;
+  twitter?: TwitterMetadata;
+  themeColor: string;
+}
+
+const { title, description, canonical, robots, openGraph, twitter, themeColor } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>{title}</title>
+    <meta content={description} name="description" />
+    <meta content={themeColor} name="theme-color" />
+    <meta content={robots} name="robots" />
+    <link href={canonical} rel="canonical" />
+    <meta content={openGraph.type} property="og:type" />
+    <meta content={openGraph.locale} property="og:locale" />
+    <meta content={openGraph.title} property="og:title" />
+    <meta content={openGraph.description} property="og:description" />
+    <meta content={openGraph.url} property="og:url" />
+    {twitter && <meta content={twitter.card} name="twitter:card" />}
+    {twitter?.title && <meta content={twitter.title} name="twitter:title" />}
+    {twitter?.description && <meta content={twitter.description} name="twitter:description" />}
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
