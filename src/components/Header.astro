@@ -1,0 +1,30 @@
+---
+import { business } from '../data/business';
+
+interface Props {
+  brandHref: string;
+  subtitle: string;
+}
+
+const { brandHref, subtitle } = Astro.props;
+---
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a aria-label={business.name} class="brand" href={brandHref}>
+        <span aria-hidden="true" class="brandmark">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"></circle><path d="M11 12l8-8m-2 2 2 2m-5 1 2 2"></path></svg>
+        </span>
+        <span>{business.shortName}<small>{subtitle}</small></span>
+      </a>
+      <div class="navlinks">
+        <a href="#servicios">Servicios</a>
+        <a href="#opiniones">Opiniones</a>
+        <a href="#zona">Zona de servicio</a>
+        <a href="#faq">Preguntas</a>
+        <a class="call-sm" href={`tel:${business.phone.e164}`}>☎ {business.phone.display}</a>
+      </div>
+    </nav>
+  </div>
+</header>

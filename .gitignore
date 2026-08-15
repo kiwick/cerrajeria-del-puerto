@@ -1,0 +1,5 @@
+node_modules/
+dist/
+.astro/
+ASTRO_*_REPORT.md
+ASTRO_MIGRATION_PLAN.md

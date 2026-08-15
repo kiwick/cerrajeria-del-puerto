@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import MobileContactBar from '../../components/MobileContactBar.astro';
+
+const jsonLd = ["{\r\n  \"@context\": \"https://schema.org\",\r\n  \"@graph\": [\r\n    {\r\n      \"@type\": [\r\n        \"Locksmith\",\r\n        \"LocalBusiness\"\r\n      ],\r\n      \"@id\": \"https://www.cerrajeriadelpuertogandia.com/#business\",\r\n      \"name\": \"Cerrajería del Puerto Gandía\",\r\n      \"url\": \"https://www.cerrajeriadelpuertogandia.com/playa-de-gandia/\",\r\n      \"telephone\": \"+34687929669\",\r\n      \"description\": \"Cerrajería familiar con más de 20 años de experiencia. Cerrajero 24 horas en Playa de Gandía y el Grau. Apertura de puertas y urgencias en apartamentos, segundas residencias, comunidades y negocios.\",\r\n      \"aggregateRating\": {\r\n        \"@type\": \"AggregateRating\",\r\n        \"ratingValue\": \"4.8\",\r\n        \"reviewCount\": \"180\",\r\n        \"bestRating\": \"5\",\r\n        \"worstRating\": \"1\"\r\n      },\r\n      \"address\": {\r\n        \"@type\": \"PostalAddress\",\r\n        \"streetAddress\": \"Carrer Rei, 4\",\r\n        \"postalCode\": \"46730\",\r\n        \"addressLocality\": \"Gandía\",\r\n        \"addressRegion\": \"Valencia\",\r\n        \"addressCountry\": \"ES\"\r\n      },\r\n      \"areaServed\": [\r\n        {\r\n          \"@type\": \"Place\",\r\n          \"name\": \"Playa de Gandía\"\r\n        }\r\n      ],\r\n      \"openingHoursSpecification\": {\r\n        \"@type\": \"OpeningHoursSpecification\",\r\n        \"dayOfWeek\": [\r\n          \"Monday\",\r\n          \"Tuesday\",\r\n          \"Wednesday\",\r\n          \"Thursday\",\r\n          \"Friday\",\r\n          \"Saturday\",\r\n          \"Sunday\"\r\n        ],\r\n        \"opens\": \"00:00\",\r\n        \"closes\": \"23:59\"\r\n      },\r\n      \"sameAs\": [\r\n        \"https://www.google.com/maps/search/?api=1&query=Cerrajeria+del+Puerto+Gandia&query_place_id=ChIJp7hPn9DDYQ0RQhFlBpHeOuo\",\r\n        \"https://www.facebook.com/cerrajeriadelpuertogandia/\",\r\n        \"https://www.instagram.com/cerrajeriadelpuerto/\"\r\n      ]\r\n    },\r\n    {\r\n      \"@type\": \"WebSite\",\r\n      \"@id\": \"https://www.cerrajeriadelpuertogandia.com/#website\",\r\n      \"url\": \"https://www.cerrajeriadelpuertogandia.com/\",\r\n      \"name\": \"Cerrajería del Puerto Gandía\",\r\n      \"inLanguage\": \"es-ES\",\r\n      \"publisher\": {\r\n        \"@id\": \"https://www.cerrajeriadelpuertogandia.com/#business\"\r\n      }\r\n    },\r\n    {\r\n      \"@type\": \"FAQPage\",\r\n      \"@id\": \"https://www.cerrajeriadelpuertogandia.com/playa-de-gandia/#faq\",\r\n      \"mainEntity\": [\r\n        {\r\n          \"@type\": \"Question\",\r\n          \"name\": \"¿Atiendes urgencias las 24 horas en Playa de Gandía?\",\r\n          \"acceptedAnswer\": {\r\n            \"@type\": \"Answer\",\r\n            \"text\": \"Sí. Si tienes una urgencia en Playa de Gandía, puedes llamarme a cualquier hora.\"\r\n          }\r\n        },\r\n        {\r\n          \"@type\": \"Question\",\r\n          \"name\": \"¿Cuánto soléis tardar en llegar?\",\r\n          \"acceptedAnswer\": {\r\n            \"@type\": \"Answer\",\r\n            \"text\": \"Como referencia, el tiempo habitual es de 15–20 minutos. Puede cambiar según el tráfico, el punto exacto y la disponibilidad en ese momento.\"\r\n          }\r\n        },\r\n        {\r\n          \"@type\": \"Question\",\r\n          \"name\": \"¿Te puedo mandar una foto antes de que vengas?\",\r\n          \"acceptedAnswer\": {\r\n            \"@type\": \"Answer\",\r\n            \"text\": \"Sí. De hecho ayuda bastante. Mándanos una foto de la cerradura y, si puedes, tu ubicación.\"\r\n          }\r\n        },\r\n        {\r\n          \"@type\": \"Question\",\r\n          \"name\": \"¿Me dices el precio antes de empezar?\",\r\n          \"acceptedAnswer\": {\r\n            \"@type\": \"Answer\",\r\n            \"text\": \"Primero necesitamos saber qué ocurre y qué tipo de cerradura tienes. Antes de hacer el trabajo te explicamos qué hay que hacer y su coste.\"\r\n          }\r\n        },\r\n        {\r\n          \"@type\": \"Question\",\r\n          \"name\": \"¿Intentas abrir sin romper?\",\r\n          \"acceptedAnswer\": {\r\n            \"@type\": \"Answer\",\r\n            \"text\": \"Siempre valoramos primero la opción menos invasiva que tenga sentido para esa puerta y esa cerradura.\"\r\n          }\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}","{\r\n  \"@context\": \"https://schema.org\",\r\n  \"@type\": \"BreadcrumbList\",\r\n  \"itemListElement\": [\r\n    {\r\n      \"@type\": \"ListItem\",\r\n      \"position\": 1,\r\n      \"name\": \"Inicio\",\r\n      \"item\": \"https://www.cerrajeriadelpuertogandia.com/\"\r\n    },\r\n    {\r\n      \"@type\": \"ListItem\",\r\n      \"position\": 2,\r\n      \"name\": \"Playa de Gandía\",\r\n      \"item\": \"https://www.cerrajeriadelpuertogandia.com/playa-de-gandia/\"\r\n    }\r\n  ]\r\n}"];
+---
+
+<BaseLayout
+  title="Cerrajero Playa de Gandía | Cerrajero 24 horas"
+  description="Cerrajero 24 horas en Playa de Gandía y el Grau. Apertura de puertas y urgencias en apartamentos, segundas residencias, comunidades y negocios."
+  canonical="https://www.cerrajeriadelpuertogandia.com/playa-de-gandia/"
+  robots="index,follow"
+  themeColor="#101820"
+  openGraph={{
+    type: "website",
+    locale: "es_ES",
+    title: "Cerrajero Playa de Gandía | Cerrajero 24 horas",
+    description: "Cerrajero 24 horas en Playa de Gandía y el Grau. Apertura de puertas y urgencias en apartamentos, segundas residencias, comunidades y negocios.",
+    url: "https://www.cerrajeriadelpuertogandia.com/playa-de-gandia/",
+  }}
+  twitter={{ card: "summary" }}
+>
+  <div class="topbar"><strong>Cerrajero de urgencias 24h</strong> · Playa de Gandía</div>
+  <Header brandHref="/" subtitle="Playa de Gandía · La Safor" />
+  <main id="inicio">
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<span class="eyebrow"><span class="dot"></span> Disponible para urgencias 24 horas</span>
+<h1>Cerrajero 24h en Playa de Gandía</h1>
+<p>¿Has llegado al apartamento y la puerta no abre? ¿Has salido sin las llaves? Atendemos urgencias en Playa de Gandía y el Grau. Puedes llamarme o mandarme una foto por WhatsApp.</p>
+<div class="actions">
+<a class="btn btn-primary" href="tel:+34687929669">☎ Llamar ahora · 687 929 669</a>
+<a class="btn btn-secondary" href="https://wa.me/34687929669?text=Hola%2C%20necesito%20un%20cerrajero%20en%20La%20Safor.%20Te%20env%C3%ADo%20una%20foto%20de%20la%20cerradura." rel="noopener" target="_blank">Enviar foto por WhatsApp</a>
+</div>
+<div class="proofline">
+<span>★ <b>4,8/5 en Google</b> · 180 reseñas</span>
+<span>✓ <b>Más de 20 años</b> de experiencia</span>
+<span>✓ Atención directa</span>
+<span>✓ <b>Playa de Gandía y Grau</b></span>
+</div>
+</div>
+<aside aria-label="Contacto urgente" class="urgency-card">
+<div class="label">¿Es una urgencia?</div>
+<h2>Cuéntanos qué ha pasado.</h2>
+<p>Una puerta que no abre no necesita formularios. Llámanos o mándanos una foto de la cerradura y te decimos cómo podemos resolverlo.</p>
+<div class="phonebox">
+<small>Teléfono 24h</small>
+<a href="tel:+34687929669">687 929 669</a>
+</div>
+<a class="btn btn-primary" href="tel:+34687929669" style="width:100%">Llamar al cerrajero</a>
+<p class="mini">Atención directa en Playa de Gandía.</p>
+</aside>
+</div>
+</section>
+<section class="section">
+<div class="wrap">
+<div class="section-head">
+<span class="kicker">Cuando necesitas ayuda</span>
+<h2 class="section-title">Una llamada. Una foto si puedes. Y vamos al grano.</h2>
+<p>No hace falta rellenar formularios ni explicar lo mismo tres veces. Nos cuentas qué ocurre y vemos la mejor forma de resolverlo.</p>
+</div>
+<div class="steps">
+<article class="step"><div class="num">1</div><h3>Cuéntanos qué ocurre</h3><p>Llámanos o mándanos una foto por WhatsApp. Si compartes tu ubicación, mejor.</p></article>
+<article class="step"><div class="num">2</div><h3>Te explicamos cómo lo vemos</h3><p>Con lo que nos cuentes valoramos el trabajo antes de empezar. Preferimos que tengas claro qué vamos a hacer.</p></article>
+<article class="step"><div class="num">3</div><h3>Vamos hasta ti</h3><p>Nos desplazamos hasta Playa de Gandía y atendemos el trabajo directamente.</p></article>
+<article class="step"><div class="num">4</div><h3>Resolvemos el problema</h3><p>Realizamos el trabajo buscando siempre la solución adecuada y, cuando es posible, evitando daños innecesarios.</p></article>
+</div>
+</div>
+</section>
+<section class="section white" id="servicios">
+<div class="wrap">
+<div class="section-head">
+<span class="kicker">Servicios de cerrajería</span>
+<h2 class="section-title">Lo habitual. Bien hecho.</h2>
+<p>Aperturas, cerraduras y bombines en apartamentos, segundas residencias, comunidades y pequeños negocios de Playa de Gandía.</p>
+</div>
+<div class="services">
+<article class="service"><div class="icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-8h6v8"></path></svg></div><h3>Apertura de puertas</h3><p>Puertas cerradas, llaves olvidadas o problemas de acceso en viviendas y negocios.</p></article>
+<article class="service"><div class="icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="7.5" cy="15.5" r="3.5"></circle><path d="M10 13l9-9m-2 2 2 2m-5 1 2 2"></path></svg></div><h3>Cambio de cerraduras y bombines</h3><p>Sustitución por avería, pérdida de llaves, mudanza o mejora de seguridad.</p></article>
+<article class="service"><div class="icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 2l3 6 6 .9-4.5 4.4 1 6.2L12 16.7 6.5 19.5l1-6.2L3 8.9 9 8z"></path></svg></div><h3>Cerrajero urgente 24h</h3><p>Atención fuera de horario cuando el problema no puede esperar al día siguiente.</p></article>
+</div>
+<div class="price-promise">
+<div class="num">€</div>
+<div><h3>Precio claro antes de empezar</h3><p>Antes de realizar el trabajo te explicamos qué hay que hacer y su coste. Sin intermediarios y sin sorpresas al terminar.</p></div>
+</div>
+</div>
+</section>
+<section class="section" id="opiniones">
+<div class="wrap">
+<div class="section-head">
+<span class="kicker">Opiniones reales</span>
+<h2 class="section-title">Antes de abrir la puerta a alguien, es normal querer saber quién viene.</h2>
+<p>Las opiniones de otros clientes ayudan mucho cuando tienes que llamar a un cerrajero que no conoces. En Google puedes ver más de 180 experiencias con Cerrajería del Puerto.</p>
+</div>
+<div class="reviews-summary">
+<div>
+<div aria-label="Valoración de 4,8 sobre 5 en Google" class="stars">★★★★★</div>
+<strong>4,8/5 en Google · Más de 180 reseñas</strong>
+<p>La valoración pública de Cerrajería del Puerto en Google.</p>
+</div>
+<a class="google-link" href="https://www.google.com/maps/search/?api=1&amp;query=Cerrajeria+del+Puerto+Gandia&amp;query_place_id=ChIJp7hPn9DDYQ0RQhFlBpHeOuo" rel="noopener noreferrer" target="_blank">Ver en Google →</a>
+</div>
+<div class="reviews"><article class="review"><div aria-hidden="true" class="review-stars">★★★★★</div><blockquote>“Muy recomendable, gente profesional, muy seria y responsable. Al intentar cambiar un bombín me quedé encerrado y en 20 minutos estaba en casa. El precio muy razonable. Ya tenéis un nuevo cliente en Playa de Gandía.”</blockquote><footer><strong>Playa de Gandía</strong><span class="google-badge">Opinión de cliente</span></footer></article><article class="review"><div aria-hidden="true" class="review-stars">★★★★★</div><blockquote>“Excelente servicio y atención. Hicieron el trabajo en tiempo record. Recomendable.”</blockquote><footer><strong>Tiempo récord</strong><span class="google-badge">Opinión de cliente</span></footer></article><article class="review"><div aria-hidden="true" class="review-stars">★★★★★</div><blockquote>“Trato muy cercano y muy profesional. Si me es necesario volveré a contactar con ellos sin duda.”</blockquote><footer><strong>Trato cercano</strong><span class="google-badge">Opinión de cliente</span></footer></article></div>
+</div>
+</section>
+<section class="section" id="zona">
+<div class="wrap trust">
+<div class="trust-panel">
+<h3>Por qué llamar a una cerrajería local</h3>
+<div class="checks">
+<div class="check"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg><span><strong>Trato directo y cercano.</strong> Somos una cerrajería familiar. Cuando llamas, hablas con nosotros, no con una central que deriva avisos.</span></div>
+<div class="check"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg><span><strong>Conocemos la zona marítima.</strong> Playa, Grau, Venècia y accesos de una zona que cambia mucho entre invierno y verano.</span></div>
+<div class="check"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg><span><strong>Más de 20 años en el oficio.</strong> La experiencia se nota cuando hay que decidir cómo abrir o reparar sin hacer más de lo necesario.</span></div>
+<div class="check"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg><span><strong>Urgencias 24h.</strong> También de noche, fines de semana y festivos.</span></div>
+<div class="check"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg><span><strong>Precio claro antes de empezar.</strong> Primero vemos qué hay que hacer. Después te explicamos el trabajo antes de empezar.</span></div>
+<div class="check"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg><span><strong>Estamos cerca.</strong> El tiempo habitual de llegada es de 15–20 minutos, según tráfico y disponibilidad.</span></div></div>
+</div>
+<div class="local">
+<span class="kicker">Cerrajero en Playa de Gandía</span>
+<h3>La playa tiene su propio ritmo.</h3>
+<p>Aquí muchas llamadas llegan al empezar unas vacaciones, al volver a una segunda residencia o al salir un momento del apartamento. Conocer la zona ayuda, sobre todo en verano, cuando encontrar un portal o llegar al punto correcto puede llevar más tiempo de lo normal.</p>
+<div class="gandia-arrival" style="margin-top:20px;padding:18px 20px;background:rgba(255,255,255,.72);border:1px solid rgba(16,24,32,.08);border-radius:16px"><div style="font-size:.78rem;text-transform:uppercase;letter-spacing:.11em;font-weight:850;color:#8a6513">Estamos cerca</div><strong style="display:block;font-size:1.25rem;margin-top:4px">Tiempo habitual de llegada: 15–20 minutos</strong><p style="margin:6px 0 0;color:var(--muted);font-size:.9rem">Es una referencia. El tráfico, el punto exacto y si estamos terminando otro aviso pueden cambiarlo.</p></div><div class="areas"><span>Playa Norte</span><span>Grau de Gandía</span><span>Venècia</span><span>Marenys de Rafalcaid</span><span>Les Foies</span><span>Puerto</span><span>Passeig Marítim</span><span>L’Ahuir</span></div>
+</div>
+</div>
+</section><section class="section white">
+<div class="wrap">
+<div class="section-head">
+<span class="kicker">Apartamentos y vacaciones</span>
+<h2 class="section-title">Que una cerradura no te estropee el día.</h2>
+<p>En la playa el problema suele llegar en el peor momento. Acabas de llegar con las maletas, los niños están esperando o tienes que devolver un apartamento. Por eso procuramos que desde la primera llamada todo sea sencillo.</p>
+</div>
+<div class="gandia-grid">
+<article class="gandia-card"><h3>Acabas de llegar</h3><p>Si la llave no gira o no puedes entrar, mándanos una foto de la cerradura y tu ubicación. Así vamos con más información desde el principio.</p></article>
+<article class="gandia-card"><h3>Segunda residencia</h3><p>Una cerradura que lleva meses sin usarse puede dar problemas justo al volver. Primero vemos qué ocurre y después decidimos qué merece la pena hacer.</p></article>
+<article class="gandia-card"><h3>Apartamento o alquiler</h3><p>Si eres propietario, huésped o gestionas un alojamiento, el objetivo es el mismo. Recuperar el acceso cuanto antes y sin añadir más lío a la situación.</p></article>
+</div>
+</div>
+</section>
+<section class="section white" id="faq">
+<div class="wrap faq">
+<div class="section-head">
+<span class="kicker">Preguntas frecuentes</span>
+<h2 class="section-title">Lo que nos suelen preguntar.</h2>
+</div>
+<details><summary>¿Atiendes urgencias las 24 horas en Playa de Gandía?</summary><p>Sí. Si tienes una urgencia en Playa de Gandía, puedes llamarnos a cualquier hora.</p></details><details><summary>¿Cuánto soléis tardar en llegar?</summary><p>Como referencia, el tiempo habitual es de 15–20 minutos. Puede cambiar según el tráfico, el punto exacto y la disponibilidad en ese momento.</p></details><details><summary>¿Puedo mandar una foto antes de que vengáis?</summary><p>Sí. De hecho ayuda bastante. Mándanos una foto de la cerradura y, si puedes, tu ubicación.</p></details><details><summary>¿Me dices el precio antes de empezar?</summary><p>Primero necesitamos saber qué ocurre y qué tipo de cerradura tienes. Antes de hacer el trabajo te explicamos qué hay que hacer y su coste.</p></details><details><summary>¿Intentas abrir sin romper?</summary><p>Siempre valoramos primero la opción menos invasiva que tenga sentido para esa puerta y esa cerradura.</p></details></div>
+</section>
+<section class="cta">
+<div class="wrap cta-row">
+<div><h2>¿Necesitas ayuda en Playa de Gandía?</h2><p>Llámanos. Si puedes, mándanos antes una foto de la cerradura.</p></div>
+<a class="btn" href="tel:+34687929669">☎ 687 929 669</a>
+</div>
+</section>
+</main>
+  <Footer />
+  <MobileContactBar />
+  {jsonLd.map((schema) => <script type="application/ld+json" set:html={schema} />)}
+</BaseLayout>
