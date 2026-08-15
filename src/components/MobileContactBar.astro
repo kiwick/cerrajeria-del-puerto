@@ -1,8 +1,14 @@
 ---
 import { business } from '../data/business';
+
+interface Props {
+  whatsappUrl?: string;
+}
+
+const { whatsappUrl = business.whatsapp.globalUrl } = Astro.props;
 ---
 
 <div aria-label="Contacto rápido" class="mobile-bar">
   <a class="tel" href={`tel:${business.phone.e164}`}>☎ Llamar ahora</a>
-  <a class="wa" href={business.whatsapp.globalUrl} rel="noopener" target="_blank">WhatsApp</a>
+  <a class="wa" href={whatsappUrl} rel="noopener" target="_blank">WhatsApp</a>
 </div>

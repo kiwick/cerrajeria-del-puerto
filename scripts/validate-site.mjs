@@ -15,6 +15,7 @@ const pages = [
   { name: 'Playa de Oliva', fixture: 'playa-de-oliva.html', output: 'playa-de-oliva/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/playa-de-oliva/', validateFaq: true },
   { name: 'Tavernes de la Valldigna', fixture: 'tavernes-de-la-valldigna.html', output: 'tavernes-de-la-valldigna/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/tavernes-de-la-valldigna/', validateFaq: true },
   { name: 'Xeraco', fixture: 'xeraco.html', output: 'xeraco/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/xeraco/', validateFaq: true },
+  { name: 'Seguridad en puertas y cerraduras', fixture: 'seguridad-puertas-cerraduras.html', output: 'seguridad-puertas-cerraduras/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/seguridad-puertas-cerraduras/', validateFaq: true, allowClientJavaScript: true },
 ];
 
 const normalize = (value = '') => value.replace(/\s+/g, ' ').trim();
@@ -50,12 +51,19 @@ function extract(html) {
     facebook: links.filter(({ attributes }) => attributes.href?.includes('facebook.com')),
     instagram: links.filter(({ attributes }) => attributes.href?.includes('instagram.com')),
     googleMaps: links.filter(({ attributes }) => attributes.href?.includes('google.com/maps')),
-    faqs: $('details').map((_, element) => ({ question: normalize($(element).find('summary').text()), answer: normalize($(element).find('p').text()) })).get(),
+    faqs: $('#faq details').map((_, element) => ({ question: normalize($(element).find('summary').text()), answer: normalize($(element).find('p').text()) })).get(),
     jsonLd,
     breadcrumb: graphNodes.filter((node) => node['@type'] === 'BreadcrumbList'),
     aggregateRating: business?.aggregateRating ?? null,
     areaServed: business?.areaServed ?? null,
     scripts: $('script').map((_, element) => ({ type: $(element).attr('type') ?? '', src: $(element).attr('src') ?? '' })).get(),
+    hydration: $('astro-island,astro-slot').length,
+    images: $('img').map((_, element) => ({ src: $(element).attr('src') ?? '', alt: $(element).attr('alt') ?? '', width: $(element).attr('width') ?? '', height: $(element).attr('height') ?? '', loading: $(element).attr('loading') ?? '' })).get(),
+    comparison: {
+      systemHeaders: $('thead th[data-system-column]').length,
+      criteriaRows: $('tbody th[scope="row"]').length,
+      valueCells: $('tbody td[data-system-column]').length,
+    },
   };
 }
 
@@ -82,7 +90,15 @@ for (const page of pages) {
     console.log(`PASS ${name}`);
   }
   assert.equal(generated.h1.length, 1, `${page.name}: expected exactly one H1`);
-  assert.ok(generated.scripts.every(({ type, src }) => type === 'application/ld+json' && src === ''), `${page.name}: unexpected client JavaScript found`);
+  const clientScripts = generated.scripts.filter(({ type }) => type !== 'application/ld+json');
+  if (page.allowClientJavaScript) assert.equal(clientScripts.length, 1, `${page.name}: expected exactly one comparator script`);
+  else assert.equal(clientScripts.length, 0, `${page.name}: unexpected client JavaScript found`);
+  assert.equal(generated.hydration, 0, `${page.name}: Astro hydration markup found`);
+  if (page.allowClientJavaScript) {
+    assert.deepStrictEqual(generated.comparison, { systemHeaders: 6, criteriaRows: 8, valueCells: 48 }, `${page.name}: complete comparison matrix must exist in static HTML`);
+    assert.ok(!generated.scripts.some(({ src }) => src), `${page.name}: comparator JavaScript must remain isolated inline`);
+    assert.ok(!(await readFile(path.join(dist, page.output), 'utf8')).includes('innerHTML'), `${page.name}: comparator must not generate content with innerHTML`);
+  }
   assert.equal(generated.canonical[0], page.url, `${page.name}: canonical does not match public URL`);
   assert.deepStrictEqual(generated.robots, ['index,follow'], `${page.name}: robots must be index,follow`);
   const faqPage = generated.jsonLd.flatMap((schema) => schema['@graph'] ?? [schema]).find((node) => node['@type'] === 'FAQPage');
@@ -91,7 +107,7 @@ for (const page of pages) {
     assert.deepStrictEqual(structuredFaqs, generated.faqs, `${page.name}: visible FAQ differs from FAQPage JSON-LD`);
   }
   console.log('PASS exactly one H1');
-  console.log('PASS no client JavaScript or hydration scripts');
+  console.log(page.allowClientJavaScript ? 'PASS one isolated comparator script and no hydration' : 'PASS no client JavaScript or hydration');
   pageResults.push({ name: page.name, checks: checks.map(([name]) => name), status: 'PASS' });
 }
 
@@ -113,7 +129,7 @@ async function inspectOutput(directory) {
 await inspectOutput(dist);
 assert.deepStrictEqual(generatedHtmlFiles.sort(), pages.map(({ output }) => output).sort(), 'Unexpected Astro HTML pages were generated');
 assert.deepStrictEqual(generatedJsFiles, [], 'JavaScript assets were generated');
-console.log('PASS exactly seven expected HTML pages');
+console.log('PASS exactly eight expected HTML pages');
 console.log('PASS no JavaScript assets');
 
 const sitemap = await readFile(path.join(dist, 'sitemap.xml'), 'utf8');
@@ -125,7 +141,7 @@ for (const url of sitemapUrls) {
   assert.equal(parsed.hostname, 'www.cerrajeriadelpuertogandia.com', `Sitemap URL does not use production www host: ${url}`);
   assert.ok(parsed.pathname.endsWith('/'), `Sitemap URL has no trailing slash: ${url}`);
 }
-console.log('PASS sitemap contains exactly seven HTTPS www URLs with trailing slashes');
+console.log('PASS sitemap contains exactly eight HTTPS www URLs with trailing slashes');
 const outputText = await Promise.all(generatedHtmlFiles.map((file) => readFile(path.join(dist, file), 'utf8')));
 assert.ok(!outputText.join('\n').includes('github.io'), 'github.io URL found in generated HTML');
 console.log('PASS no github.io URLs in generated HTML');
