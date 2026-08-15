@@ -13,6 +13,8 @@ const pages = [
   { name: 'Playa de Gandía', fixture: 'playa-de-gandia.html', output: 'playa-de-gandia/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/playa-de-gandia/' },
   { name: 'Oliva', fixture: 'oliva.html', output: 'oliva/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/oliva/' },
   { name: 'Playa de Oliva', fixture: 'playa-de-oliva.html', output: 'playa-de-oliva/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/playa-de-oliva/' },
+  { name: 'Tavernes de la Valldigna', fixture: 'tavernes-de-la-valldigna.html', output: 'tavernes-de-la-valldigna/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/tavernes-de-la-valldigna/', validateFaq: true },
+  { name: 'Xeraco', fixture: 'xeraco.html', output: 'xeraco/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/xeraco/', validateFaq: true },
 ];
 
 const normalize = (value = '') => value.replace(/\s+/g, ' ').trim();
@@ -82,6 +84,12 @@ for (const page of pages) {
   assert.equal(generated.h1.length, 1, `${page.name}: expected exactly one H1`);
   assert.ok(generated.scripts.every(({ type, src }) => type === 'application/ld+json' && src === ''), `${page.name}: unexpected client JavaScript found`);
   assert.equal(generated.canonical[0], page.url, `${page.name}: canonical does not match public URL`);
+  assert.deepStrictEqual(generated.robots, ['index,follow'], `${page.name}: robots must be index,follow`);
+  const faqPage = generated.jsonLd.flatMap((schema) => schema['@graph'] ?? [schema]).find((node) => node['@type'] === 'FAQPage');
+  if (page.validateFaq) {
+    const structuredFaqs = faqPage?.mainEntity?.map((item) => ({ question: item.name, answer: item.acceptedAnswer?.text })) ?? [];
+    assert.deepStrictEqual(structuredFaqs, generated.faqs, `${page.name}: visible FAQ differs from FAQPage JSON-LD`);
+  }
   console.log('PASS exactly one H1');
   console.log('PASS no client JavaScript or hydration scripts');
   pageResults.push({ name: page.name, checks: checks.map(([name]) => name), status: 'PASS' });
@@ -105,7 +113,7 @@ async function inspectOutput(directory) {
 await inspectOutput(dist);
 assert.deepStrictEqual(generatedHtmlFiles.sort(), pages.map(({ output }) => output).sort(), 'Unexpected Astro HTML pages were generated');
 assert.deepStrictEqual(generatedJsFiles, [], 'JavaScript assets were generated');
-console.log('PASS exactly five expected HTML pages');
+console.log('PASS exactly seven expected HTML pages');
 console.log('PASS no JavaScript assets');
 
 const sitemap = await readFile(path.join(dist, 'sitemap.xml'), 'utf8');
@@ -117,7 +125,7 @@ for (const url of sitemapUrls) {
   assert.equal(parsed.hostname, 'www.cerrajeriadelpuertogandia.com', `Sitemap URL does not use production www host: ${url}`);
   assert.ok(parsed.pathname.endsWith('/'), `Sitemap URL has no trailing slash: ${url}`);
 }
-console.log('PASS sitemap contains exactly five HTTPS www URLs with trailing slashes');
+console.log('PASS sitemap contains exactly seven HTTPS www URLs with trailing slashes');
 const outputText = await Promise.all(generatedHtmlFiles.map((file) => readFile(path.join(dist, file), 'utf8')));
 assert.ok(!outputText.join('\n').includes('github.io'), 'github.io URL found in generated HTML');
 console.log('PASS no github.io URLs in generated HTML');

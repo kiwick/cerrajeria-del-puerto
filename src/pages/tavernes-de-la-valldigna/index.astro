@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import MobileContactBar from '../../components/MobileContactBar.astro';
+import { business } from '../../data/business';
+
+const canonical = `${business.domain}/tavernes-de-la-valldigna/`;
+const title = 'Cerrajero 24h en Tavernes de la Valldigna';
+const description = 'Cerrajero 24h en Tavernes de la Valldigna. Apertura de puertas, cambio de cerraduras y bombines. Llegada habitual de 30–35 minutos.';
+const faqs = [
+  { question: '¿Atendéis urgencias 24h en Tavernes de la Valldigna?', answer: 'Sí. Cerrajería del Puerto atiende urgencias en Tavernes de la Valldigna las 24 horas, también de noche, fines de semana y festivos.' },
+  { question: '¿Cuánto tardáis habitualmente en llegar a Tavernes?', answer: 'La llegada habitual es de 30–35 minutos. Es una referencia que puede variar según el tráfico, el punto exacto y la disponibilidad en ese momento.' },
+  { question: '¿Abrís puertas sin romper?', answer: 'Primero valoramos la técnica menos invasiva adecuada para la puerta y la cerradura. El resultado depende del sistema instalado, su estado y la avería concreta.' },
+  { question: '¿Puedo enviar una foto por WhatsApp?', answer: 'Sí. Una foto de la cerradura, junto con una explicación breve de lo ocurrido, nos ayuda a valorar el aviso antes de desplazarnos.' },
+  { question: '¿Atendéis viviendas, comunidades y negocios?', answer: 'Sí. Trabajamos en viviendas, accesos de comunidades y pequeños negocios de Tavernes de la Valldigna.' },
+];
+const jsonLd = [{
+  '@context': 'https://schema.org', '@graph': [
+    { '@type': ['Locksmith', 'LocalBusiness'], '@id': `${business.domain}/#business`, name: business.name, url: canonical, telephone: business.phone.e164, description, address: { '@type': 'PostalAddress', streetAddress: business.address.streetAddress, postalCode: business.address.postalCode, addressLocality: business.address.addressLocality, addressRegion: business.address.addressRegion, addressCountry: business.address.addressCountry }, areaServed: [{ '@type': 'City', name: 'Tavernes de la Valldigna' }], openingHoursSpecification: { '@type': 'OpeningHoursSpecification', ...business.openingHoursSpecification }, sameAs: [business.googleMaps.url, business.social.facebook, business.social.instagram] },
+    { '@type': 'WebSite', '@id': `${business.domain}/#website`, url: `${business.domain}/`, name: business.name, inLanguage: 'es-ES', publisher: { '@id': `${business.domain}/#business` } },
+    { '@type': 'FAQPage', '@id': `${canonical}#faq`, mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) },
+  ],
+}, { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: `${business.domain}/` }, { '@type': 'ListItem', position: 2, name: 'Tavernes de la Valldigna', item: canonical }] }];
+---
+
+<BaseLayout title={title} description={description} canonical={canonical} robots="index,follow" themeColor="#101820" openGraph={{ type: 'website', locale: 'es_ES', title, description, url: canonical }} twitter={{ card: 'summary' }}>
+  <div class="topbar"><strong>Cerrajero de urgencias 24h</strong> · Tavernes de la Valldigna</div>
+  <Header brandHref="/" subtitle="Tavernes de la Valldigna · La Safor" />
+  <main id="inicio">
+    <section class="hero"><div class="wrap hero-grid"><div>
+      <span class="eyebrow"><span class="dot"></span> Servicio activo las 24 horas</span>
+      <h1>Cerrajero 24h en Tavernes de la Valldigna</h1>
+      <p>Cuando una puerta impide entrar, una llave se parte o el bombín deja de responder, atendemos el aviso directamente en Tavernes. Trabajamos para viviendas, comunidades y pequeños negocios del municipio.</p>
+      <div class="actions"><a class="btn btn-primary" href={`tel:${business.phone.e164}`}>☎ Llamar ahora · {business.phone.display}</a><a class="btn btn-secondary" href={business.whatsapp.heroUrl} rel="noopener" target="_blank">Enviar foto por WhatsApp</a></div>
+      <div class="proofline"><span>✓ <b>Urgencias 24h</b></span><span>✓ <b>Llegada habitual: 30–35 min</b></span><span>✓ Atención directa</span><span>✓ <b>La Safor</b></span></div>
+    </div><aside aria-label="Contacto urgente" class="urgency-card"><div class="label">¿No puedes entrar o cerrar?</div><h2>Explícanos qué está fallando.</h2><p>Llámanos y dinos si la puerta está cerrada, la llave gira o el mecanismo se ha bloqueado. Una foto puede ayudarnos a preparar mejor la intervención.</p><div class="phonebox"><small>Teléfono 24h</small><a href={`tel:${business.phone.e164}`}>{business.phone.display}</a></div><a class="btn btn-primary" href={`tel:${business.phone.e164}`} style="width:100%">Hablar con el cerrajero</a><p class="mini">Atención en Tavernes de la Valldigna.</p></aside></div></section>
+
+    <section class="section"><div class="wrap"><div class="section-head"><span class="kicker">Una urgencia, datos concretos</span><h2 class="section-title">Primero entendemos la puerta; después nos desplazamos.</h2><p>El tipo de cierre y lo que ha ocurrido importan. Saber si hay una llave puesta por dentro, una rotura o un bombín que falla evita decisiones precipitadas.</p></div><div class="steps"><article class="step"><div class="num">1</div><h3>Llama y describe el problema</h3><p>Cuéntanos qué hace la llave y si la puerta está cerrada con vuelta.</p></article><article class="step"><div class="num">2</div><h3>Enseña la cerradura</h3><p>Si puedes, envía una foto clara por WhatsApp para identificar mejor el sistema.</p></article><article class="step"><div class="num">3</div><h3>Confirmamos la intervención</h3><p>Te explicamos cómo planteamos el trabajo y el coste antes de empezar.</p></article><article class="step"><div class="num">4</div><h3>Atendemos el aviso</h3><p>Nos desplazamos a Tavernes y realizamos el trabajo directamente.</p></article></div></div></section>
+
+    <section class="section white" id="servicios"><div class="wrap"><div class="section-head"><span class="kicker">Cerrajería en Tavernes</span><h2 class="section-title">Soluciones para recuperar el acceso y volver a cerrar con seguridad.</h2><p>Atendemos tanto una urgencia puntual como la sustitución de un mecanismo que ya no ofrece confianza.</p></div><div class="services"><article class="service"><h3>Apertura de puertas</h3><p>Accesos bloqueados, llaves olvidadas o cerraduras que dejan de funcionar en el momento menos oportuno.</p></article><article class="service"><h3>Cerraduras y bombines</h3><p>Cambio por desgaste, pérdida de llaves, avería o necesidad de renovar quién puede acceder.</p></article><article class="service"><h3>Urgencias 24 horas</h3><p>Atención durante todo el día cuando una vivienda, un portal o un pequeño negocio no puede quedar abierto o cerrado.</p></article></div></div></section>
+
+    <section class="section" id="zona"><div class="wrap trust"><div class="trust-panel"><h3>Servicio directo, sin derivar el aviso</h3><div class="checks"><div class="check"><span><strong>Viviendas.</strong> Aperturas y cambios de cerradura en el acceso habitual a casa.</span></div><div class="check"><span><strong>Comunidades.</strong> Problemas en portales y cierres que soportan un uso compartido frecuente.</span></div><div class="check"><span><strong>Pequeños negocios.</strong> Intervenciones cuando el cierre impide comenzar o terminar la jornada.</span></div><div class="check"><span><strong>Experiencia.</strong> Más de 20 años trabajando con puertas y mecanismos diferentes.</span></div></div></div><div class="local"><span class="kicker">Municipio de La Safor</span><h3>Tavernes necesita una atención propia.</h3><p>Tavernes de la Valldigna es un municipio con actividad residencial, comunidades y comercio cotidiano. La intervención se plantea según el uso real de cada acceso: no requiere lo mismo una puerta de vivienda que un portal compartido o el cierre de un establecimiento.</p><div class="gandia-arrival" style="margin-top:20px;padding:18px 20px;background:rgba(255,255,255,.72);border:1px solid rgba(16,24,32,.08);border-radius:16px"><div style="font-size:.78rem;text-transform:uppercase;letter-spacing:.11em;font-weight:850;color:#8a6513">Referencia de desplazamiento</div><strong style="display:block;font-size:1.25rem;margin-top:4px">Llegada habitual: 30–35 minutos</strong><p style="margin:6px 0 0;color:var(--muted);font-size:.9rem">Puede variar por tráfico, ubicación exacta y disponibilidad en el momento de la llamada.</p></div></div></div></section>
+
+    <section class="section white" id="faq"><div class="wrap faq"><div class="section-head"><span class="kicker">Preguntas frecuentes</span><h2 class="section-title">Antes de pedir asistencia en Tavernes.</h2></div>{faqs.map(({ question, answer }) => <details><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
+    <section class="cta"><div class="wrap cta-row"><div><h2>¿Necesitas un cerrajero en Tavernes?</h2><p>Llama y cuéntanos qué ocurre en la puerta o la cerradura.</p></div><a class="btn" href={`tel:${business.phone.e164}`}>☎ {business.phone.display}</a></div></section>
+  </main>
+  <Footer /><MobileContactBar />
+  {jsonLd.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+</BaseLayout>
