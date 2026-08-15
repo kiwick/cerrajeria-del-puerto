@@ -31,11 +31,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate site parity
-        run: npm run validate
-
       - name: Build Astro site
         run: npm run build
+
+      - name: Validate site parity
+        run: npm run validate
 
       - name: Audit dependencies
         run: npm audit
