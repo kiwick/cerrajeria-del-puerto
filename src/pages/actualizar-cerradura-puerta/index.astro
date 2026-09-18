@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import MobileContactBar from '../../components/MobileContactBar.astro';
+import DoorUpgradeImage from '../../components/DoorUpgradeImage.astro';
+import { business } from '../../data/business';
+
+const title = 'Actualizar cerradura antigua sin cambiar la puerta | Cerrajería del Puerto';
+const description = '¿Tienes una buena puerta pero una cerradura antigua? Descubre qué puedes actualizar sin cambiarla y pide presupuesto a Cerrajería del Puerto.';
+const canonical = `${business.domain}/actualizar-cerradura-puerta/`;
+const whatsappMessage = 'Hola, quiero pedir presupuesto para actualizar la cerradura de mi puerta. Os envío unas fotos para que podáis ver lo que tengo instalado.';
+const whatsappUrl = `https://wa.me/${business.phone.e164.replace('+', '')}?text=${encodeURIComponent(whatsappMessage)}`;
+const parts = [
+  { name: 'Bombín', text: 'Es la pieza donde introduces la llave. Si la cerradura lo permite, podemos sustituirlo por un cilindro compatible con protecciones más actuales, sin cambiar el mecanismo completo.' },
+  { name: 'Escudo de seguridad', text: 'Protege el bombín desde el exterior frente a determinados ataques. Conviene revisar cómo queda colocado y si puede combinarse con el cilindro y la puerta que ya tienes.' },
+  { name: 'Cerradura', text: 'Es el mecanismo que acciona el cierre. Cuando está anticuado o necesita una intervención, estudiamos si admite un mecanismo más actual y qué adaptación requiere.' },
+  { name: 'Puntos de cierre', text: 'En una puerta multipunto revisamos el conjunto: cómo se mueve, dónde cierra y cómo encaja en el marco. Esa revisión permite decidir qué conservar y qué actualizar.' },
+];
+const faqs = [
+  { question: '¿Se puede cambiar una cerradura antigua sin cambiar la puerta?', answer: 'En muchos casos, sí. Primero valoramos el estado de la puerta y del marco, el mecanismo instalado y las opciones compatibles. Si la puerta sigue siendo aprovechable, te proponemos una actualización ajustada a lo que necesita.' },
+  { question: '¿Se puede cambiar solo el bombín?', answer: 'Puede ser suficiente cuando el resto del cierre funciona bien y admite un cilindro compatible. Revisamos también su medida y la protección exterior para evitar elegir una pieza que no encaje con el conjunto.' },
+  { question: '¿En qué se diferencian el bombín y la cerradura al actualizarlos?', answer: 'Cambiar el bombín actúa sobre la pieza que recibe la llave. Sustituir la cerradura implica intervenir en el mecanismo de cierre. Por eso, antes de presupuestar, aclaramos qué parte necesita realmente la actualización.' },
+  { question: '¿Qué hace un escudo de seguridad?', answer: 'Cubre y protege el cilindro por el exterior. Al actualizar una puerta, revisamos si el escudo existente puede mantenerse o si conviene sustituirlo por uno compatible con el nuevo bombín y su instalación.' },
+  { question: '¿Todas las cerraduras se pueden actualizar?', answer: 'No todas admiten las mismas modificaciones. El espacio disponible, las fijaciones, el estado de la puerta y la compatibilidad del mecanismo pueden limitar las opciones. Te explicamos esas limitaciones antes de plantear el trabajo.' },
+  { question: '¿Cómo sé qué cerradura tengo?', answer: 'No necesitas identificarla por tu cuenta. Una foto del exterior y otra del canto con la puerta abierta nos ayudan a orientarte sobre lo instalado. Si faltan datos o hay que comprobar medidas y funcionamiento, será necesaria una revisión presencial.' },
+  { question: '¿Puedo enviar fotos antes de pedir presupuesto?', answer: 'Sí, puedes enviarlas por WhatsApp junto con lo que quieres mejorar. Sirven como primer paso para valorar opciones; no generan un presupuesto automático ni sustituyen una comprobación presencial cuando haga falta. Evita mostrar llaves, direcciones y datos personales.' },
+  { question: '¿Trabajáis en Gandía y La Safor?', answer: 'Sí. Atendemos actualizaciones de cerraduras en Gandía y La Safor. Cuéntanos dónde está la vivienda y qué quieres revisar para organizar la valoración y, si aceptas el presupuesto, la instalación.' },
+];
+const steps = [
+  ['Nos cuentas qué necesitas', 'Puedes empezar con unas fotos y explicar qué te preocupa: unas llaves antiguas, un cierre que falla o una mejora que quieres planificar.'],
+  ['Revisamos lo instalado', 'Identificamos el sistema y comprobamos las medidas, el estado y el funcionamiento. Cuando es necesario, lo hacemos en la vivienda.'],
+  ['Decidimos qué aprovechar', 'Valoramos la puerta, el marco y los componentes que pueden seguir cumpliendo su función.'],
+  ['Te proponemos opciones', 'Explicamos el alcance de cada alternativa compatible y preparamos el presupuesto del trabajo.'],
+  ['Realizamos la instalación', 'Si decides seguir adelante, instalamos lo acordado y comprobamos contigo que la puerta abre y cierra correctamente.'],
+];
+const jsonLd = { '@context': 'https://schema.org', '@graph': [
+  { '@type': 'WebPage', '@id': canonical, url: canonical, name: title, description, inLanguage: 'es-ES', isPartOf: { '@id': `${business.domain}/#website` }, about: { '@id': `${business.domain}/#business` } },
+  { '@type': 'FAQPage', '@id': `${canonical}#faq`, mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) },
+  { '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${business.domain}/` },
+    { '@type': 'ListItem', position: 2, name: 'Actualizar cerradura sin cambiar la puerta', item: canonical },
+  ] },
+] };
+---
+<BaseLayout title={title} description={description} canonical={canonical} robots="index,follow" themeColor="#101820" openGraph={{ type: 'website', locale: 'es_ES', title, description, url: canonical }} twitter={{ card: 'summary', title, description }}>
+  <Header brandHref="/" subtitle="Gandía · La Safor" navLinks={[{ href: '#componentes', label: 'Qué actualizar' }, { href: '#fotos', label: 'Enviar fotos' }, { href: '#faq', label: 'Preguntas' }]} />
+  <main id="inicio" class="upgrade">
+    <section class="upgrade-hero">
+      <div class="wrap">
+        <div class="breadcrumb"><a href="/">Inicio</a><span aria-hidden="true"> / </span><span>Actualizar cerradura sin cambiar la puerta</span></div>
+        <div class="two-columns hero-columns">
+          <div><span class="kicker">SEGURIDAD SIN CAMBIAR TU PUERTA</span><h1>¿Tienes una buena puerta pero una cerradura antigua?</h1>
+            <p class="intro">No hace falta cambiar una buena puerta porque su cerradura tenga años. En muchos casos se puede actualizar el bombín, el escudo, la cerradura o determinados elementos de cierre y seguir aprovechando la puerta que ya tienes.</p>
+            <div class="actions"><a class="btn btn-primary" href={whatsappUrl} target="_blank" rel="noopener">Pedir presupuesto por WhatsApp</a><a class="btn btn-secondary" href={`tel:${business.phone.e164}`}>Llamar ahora</a></div>
+          </div>
+          <figure class="blueprint">
+            <div class="drawing-label"><span>ESTUDIO DE LA PUERTA</span><span aria-hidden="true">01 — 04</span></div>
+            <DoorUpgradeImage hero name="plano-tecnico-puerta-cerradura" alt="Esquema técnico de una puerta con bombín, escudo, cerradura y puntos de cierre" />
+            <figcaption class="drawing-key">{parts.map((part, index) => <span><b>{String(index + 1).padStart(2, '0')}</b> {part.name}</span>)}</figcaption>
+          </figure>
+        </div>
+        <ul class="trust-strip"><li>Más seguridad sin cambiar tu puerta</li><li>Soluciones según lo que ya tienes instalado</li><li>Gandía y La Safor</li><li>Más de 20 años de experiencia</li></ul>
+      </div>
+    </section>
+    <section class="section"><div class="wrap">
+      <div class="section-head"><span class="kicker">Conservar lo que funciona</span><h2 class="section-title">¿Se puede cambiar una cerradura antigua sin cambiar la puerta?</h2><p>Una buena puerta no tiene por qué cambiarse. Su seguridad puede actualizarse.</p></div>
+      <div class="two-columns"><p>Una puerta sólida y bien conservada puede seguir siendo útil aunque su cerradura tenga años. En lugar de sustituirla por completo, podemos estudiar una intervención sobre los componentes que se han quedado atrás.</p><p>La decisión depende del estado de la hoja y del marco, de la cerradura instalada y de lo que quieras mejorar. No todas las puertas admiten las mismas piezas ni cualquier actualización compensa.</p></div>
+      <div class="starting-point"><span class="technical-number">01</span><div><h3>Partimos de tu puerta actual</h3><p>Primero identificamos qué tienes y qué se puede conservar. Estas imágenes ilustran dos posibles alcances de actualización; no son un antes y después ni una solución válida para todas las puertas.</p></div></div>
+      <div class="two-columns examples">
+        <figure><DoorUpgradeImage name="puerta-cerradura-actualizada" alt="Puerta de madera conservada con bombín y herrajes de cerradura actualizados" /><figcaption><span class="kicker">02 · Actualizar lo necesario</span><h3>Conservar la puerta</h3><p>Un bombín y una protección exterior adecuados pueden formar parte de una intervención concreta, si el resto del sistema está en buen estado.</p></figcaption></figure>
+        <figure><DoorUpgradeImage name="puerta-cerradura-multipunto-actualizada" alt="Puerta de madera con cerradura multipunto y elementos de seguridad actualizados" /><figcaption><span class="kicker">03 · Una actualización más completa</span><h3>Mejorar el cierre</h3><p>En otros casos conviene valorar el mecanismo y sus puntos de cierre, siempre junto con la puerta, el marco y la compatibilidad de las piezas.</p></figcaption></figure>
+      </div>
+    </div></section>
+    <section class="section white" id="componentes"><div class="wrap">
+      <div class="section-head"><span class="kicker">Revisar antes de sustituir</span><h2 class="section-title">Qué partes de una puerta se pueden actualizar</h2><p>No se trata de cambiarlo todo. Se trata de localizar qué necesita tu puerta y cómo encaja cada pieza en el conjunto.</p></div>
+      <div class="parts-grid">{parts.map((part, index) => <article><span class="technical-number">{String(index + 1).padStart(2, '0')}</span><h3>{part.name}</h3><p>{part.text}</p></article>)}</div>
+      <aside class="guide-link"><strong>¿Quieres entender qué aporta cada elemento?</strong><p>En nuestra <a href="/seguridad-puertas-cerraduras/">guía de seguridad en puertas y cerraduras</a> puedes comparar bombines, escudos, cerraduras multipunto, cerrojos y cerraduras inteligentes.</p></aside>
+    </div></section>
+    <section class="section"><div class="wrap two-columns decision">
+      <div><span class="kicker">Una decisión según su estado</span><h2 class="section-title">¿Cuándo merece la pena conservar tu puerta?</h2><p>Cuando mantiene su solidez, está bien asentada y el marco responde correctamente, merece la pena estudiar si basta con actualizar el cierre. La antigüedad de la cerradura, por sí sola, no obliga a sustituir una puerta de calidad.</p><p>Puede ser tu vivienda habitual, una segunda residencia o una casa que acabas de comprar. Que la puerta sea de madera no garantiza su seguridad: hay que valorar el conjunto y el uso que le das.</p></div>
+      <div class="case-notes"><h3>Situaciones que conviene revisar</h3><p><strong>Has comprado una vivienda o terminado un alquiler.</strong> Si no sabes quién conserva copias de las llaves, podemos valorar qué componente conviene cambiar para recuperar el control del acceso.</p><p><strong>Has perdido llaves o ves el bombín muy expuesto.</strong> Revisamos el cilindro, su protección y las opciones compatibles con tu cerradura antigua.</p><p><strong>Quieres una segunda barrera.</strong> Un cerrojo puede ser una opción si la puerta y su instalación lo permiten. Antes comprobamos si tiene más sentido reforzar el cierre que ya existe.</p></div>
+    </div></section>
+    <section class="budget" id="presupuesto"><div class="wrap"><span class="kicker">Valorar · Aprovechar · Actualizar</span><h2>Pide presupuesto para actualizar tu cerradura</h2><p>Envíanos unas fotos de tu puerta y te decimos qué se puede aprovechar y qué opciones tienes.</p><div class="actions"><a class="btn btn-primary" href={whatsappUrl} target="_blank" rel="noopener">Pedir presupuesto por WhatsApp</a><a class="btn btn-secondary" href={`tel:${business.phone.e164}`}>Llamar ahora</a></div></div></section>
+    <section class="section white" id="fotos"><div class="wrap two-columns upgrade-diagnosis">
+      <div><span class="kicker">Dos fotos para empezar</span><h2 class="section-title">Cómo saber qué cerradura tienes</h2><p>No hace falta que sepas el modelo ni el tipo de cerradura. Con unas fotos podemos ver qué tienes instalado y orientarte sobre qué conviene revisar.</p>
+        <ol class="photo-directions"><li><strong>Exterior de la puerta.</strong> Que se vean el bombín y el escudo.</li><li><strong>Canto con la puerta abierta.</strong> Que se aprecien la cerradura y los puntos de cierre.</li></ol>
+        <p class="privacy-note">Evita incluir llaves, direcciones o datos personales en las fotografías.</p><p>Las fotos sirven para una primera orientación. Si necesitamos comprobar medidas o funcionamiento, te indicaremos qué hay que revisar en persona antes de concretar el presupuesto.</p><a class="btn btn-primary" href={whatsappUrl} target="_blank" rel="noopener">Pedir presupuesto por WhatsApp</a>
+      </div>
+      <figure><DoorUpgradeImage name="fotos-puerta-diagnostico" alt="Ejemplo de fotos del exterior y del canto de una puerta para revisar su cerradura" /><figcaption class="photo-caption">Exterior + canto de la puerta. No necesitas desmontar ninguna pieza para enviarnos estas fotos.</figcaption></figure>
+    </div></section>
+    <section class="section" id="proceso"><div class="wrap"><div class="section-head"><span class="kicker">Del primer contacto a la instalación</span><h2 class="section-title">Actualizar la seguridad paso a paso</h2></div><ol class="process">{steps.map(([heading, text], index) => <li><span class="technical-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><div><h3>{heading}</h3><p>{text}</p></div></li>)}</ol></div></section>
+    <section class="section white"><div class="wrap two-columns experience"><div><span class="kicker">Cerrajería del Puerto</span><h2 class="section-title">Más de 20 años trabajando con puertas y cerraduras</h2></div><div><p>Trabajamos en Gandía y La Safor, ayudando a valorar qué merece la pena mantener y dónde conviene intervenir. Podemos orientarte, revisar lo instalado, proponerte opciones y realizar la actualización que acuerdes con nosotros.</p><p>También puedes planificar esa mejora antes de que el mecanismo dé problemas. El punto de partida es tu puerta, no una lista de piezas que haya que cambiar por obligación.</p></div></div></section>
+    <section class="section future"><div class="wrap future-panel"><span class="kicker">En desarrollo</span><h2 class="section-title">Una solución para puertas que todavía tienen mucho por delante</h2><p>En Cerrajería del Puerto estamos trabajando en una solución específica para actualizar cerraduras de puertas existentes, con el objetivo de mejorar su seguridad, estudiar la compatibilidad y aprovechar la puerta que ya tienes.</p><p>Mientras avanzamos en ese trabajo, podemos valorar tu instalación y explicarte las opciones disponibles para tu caso.</p><a href={whatsappUrl} target="_blank" rel="noopener">Consultar opciones para mi puerta <span aria-hidden="true">→</span></a></div></section>
+    <section class="section white" id="faq"><div class="wrap faq"><span class="kicker">Antes de decidir</span><h2 class="section-title">Dudas sobre actualizar una cerradura antigua</h2>{faqs.map(({ question, answer }) => <details><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
+  </main>
+  <Footer />
+  <MobileContactBar whatsappUrl={whatsappUrl} />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</BaseLayout>
+<style>
+  .upgrade{--muted:#55616b}.upgrade :global(a:focus-visible),.upgrade :global(summary:focus-visible){outline:3px solid #9a6b00;outline-offset:5px}.upgrade :global(section[id]){scroll-margin-top:95px}.two-columns{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}.upgrade p{color:var(--muted)}.upgrade h3{font-size:1.2rem;line-height:1.3;margin:0 0 12px;letter-spacing:-.02em}.upgrade figure{margin:0;overflow:hidden;border-radius:22px;border:1px solid #d7d5cb;background:#faf9f3}.upgrade-hero{background:var(--ink);color:#fff;padding:24px 0 0}.breadcrumb{font-size:.8rem;color:#bdc6cd;margin-bottom:36px}.breadcrumb a{display:inline-block;padding:6px 0}.hero-columns{align-items:center}.upgrade-hero .kicker,.budget .kicker{color:var(--accent-2)}.upgrade h1{font-size:clamp(2.55rem,4.4vw,4.05rem);line-height:1.04;letter-spacing:-.045em;margin:18px 0 22px}.upgrade-hero p{color:#d0d7dd;font-size:1.05rem}.upgrade .actions{margin-top:26px}.upgrade .btn{text-align:center}.blueprint{color:var(--ink)}.drawing-label{display:flex;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #d7d5cb;font-size:.7rem;font-weight:800;letter-spacing:.12em}.drawing-key{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:18px 20px;border-top:1px solid #d7d5cb;font-size:.85rem}.drawing-key b{font-family:monospace;color:#805c0c;margin-right:5px}.trust-strip{list-style:none;margin:38px 0 0;padding:22px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;border-top:1px solid #394149;font-size:.83rem;color:#d0d7dd}.trust-strip li{border-left:2px solid var(--accent);padding-left:12px}.starting-point{display:flex;gap:20px;border-top:1px solid #cecfc9;padding:28px 0;margin-top:28px}.starting-point p{margin:0;max-width:840px}.technical-number{font:700 1.2rem monospace;color:#805c0c;display:block;flex-shrink:0}.examples figcaption{padding:24px}.examples h3{margin-top:9px;font-size:1.55rem}.examples p{margin-bottom:0}.parts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}.parts-grid article{border-top:2px solid var(--ink);padding-top:20px}.parts-grid .technical-number{margin-bottom:26px}.parts-grid p{margin-bottom:0}.guide-link{background:var(--paper);border-left:3px solid var(--accent);padding:22px 26px;margin-top:36px}.guide-link p{margin:7px 0 0}.guide-link a,.future a{font-weight:750;text-underline-offset:4px}.case-notes{background:white;border:1px solid var(--line);border-radius:22px;padding:28px}.case-notes p+p{border-top:1px solid var(--line);padding-top:20px}.budget{background:var(--ink);color:white;padding:54px 0}.budget h2{font-size:clamp(2rem,4vw,3rem);line-height:1.1;max-width:760px;letter-spacing:-.03em;margin:14px 0}.budget p{color:#d0d7dd}.upgrade-diagnosis{align-items:center}.photo-directions{padding-left:23px}.photo-directions li{margin:14px 0;padding-left:5px}.privacy-note{border-left:3px solid var(--accent);padding:12px 16px;background:var(--paper);font-weight:650}.photo-caption{padding:20px;color:#55616b;font-size:.9rem}.process{list-style:none;padding:0;margin:0;max-width:900px}.process li{display:flex;gap:30px;border-top:1px solid #ced1d0;padding:24px 0}.process p{margin:0}.experience{align-items:center}.future{padding-top:54px;padding-bottom:54px}.future-panel{border:1px solid #c9c9bd;border-radius:22px;padding:36px;background:linear-gradient(90deg,rgba(16,24,32,.025) 1px,transparent 1px),linear-gradient(rgba(16,24,32,.025) 1px,transparent 1px);background-size:24px 24px}.future-panel h2{max-width:800px}.future-panel p{max-width:850px}.future-panel a{display:inline-flex;align-items:center;min-height:44px}.upgrade :global(summary){min-height:56px}.upgrade :global(summary::after){content:' +';color:#805c0c}.upgrade :global(details[open] summary::after){content:' −'}
+  @media(max-width:1024px){.parts-grid{grid-template-columns:1fr 1fr}.upgrade h1{font-size:2.8rem}}
+  @media(max-width:860px){.two-columns{grid-template-columns:1fr}.upgrade-hero{padding-top:14px}.hero-columns{gap:32px}.upgrade h1{max-width:700px;font-size:clamp(2.5rem,6vw,3.7rem)}.trust-strip{grid-template-columns:1fr 1fr}.future-panel{padding:28px}.upgrade-diagnosis figure{order:-1}}
+  @media(max-width:520px){.upgrade h1{font-size:2.55rem}.upgrade .section-title{font-size:2rem!important}.upgrade .btn{width:100%;padding:15px 12px;font-size:.95rem}.trust-strip{gap:18px;font-size:.78rem}.parts-grid{grid-template-columns:1fr;gap:28px}.parts-grid .technical-number{margin-bottom:14px}.drawing-key{font-size:.8rem;padding:16px 12px;gap:14px 8px}.drawing-label{padding:14px 12px}.breadcrumb{margin-bottom:24px}.case-notes,.examples figcaption{padding:22px}.future-panel{padding:24px}.process li{gap:20px}.upgrade :global(.brand){min-width:0}}
+  @media(max-width:360px){:global(body:has(.upgrade) header nav){gap:8px}:global(body:has(.upgrade) header .brand){gap:6px;font-size:.8rem}:global(body:has(.upgrade) header .brand small){font-size:.55rem;letter-spacing:.07em}:global(body:has(.upgrade) header .brandmark){width:30px;height:34px;flex-shrink:0}:global(body:has(.upgrade) header .call-sm){font-size:.72rem;padding:12px 8px;white-space:nowrap}}
+</style>
