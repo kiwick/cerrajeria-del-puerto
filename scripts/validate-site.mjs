@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { load } from 'cheerio';
+import { createHash } from 'node:crypto';
 
 const root = process.cwd();
 const fixtures = path.join(root, 'tests', 'fixtures', 'current');
@@ -19,6 +20,7 @@ const pages = [
   { name: 'Daimús', fixture: 'daimus.html', output: 'daimus/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/daimus/', validateFaq: true },
   { name: 'Bellreguard', fixture: 'bellreguard.html', output: 'bellreguard/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/bellreguard/', validateFaq: true },
   { name: 'Piles', fixture: 'piles.html', output: 'piles/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/piles/', validateFaq: true },
+  { name: 'Actualizar cerradura', fixture: 'actualizar-cerradura-puerta.html', output: 'actualizar-cerradura-puerta/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/actualizar-cerradura-puerta/', validateFaq: true },
 ];
 
 const normalize = (value = '') => value.replace(/\s+/g, ' ').trim();
@@ -132,7 +134,7 @@ async function inspectOutput(directory) {
 await inspectOutput(dist);
 assert.deepStrictEqual(generatedHtmlFiles.sort(), pages.map(({ output }) => output).sort(), 'Unexpected Astro HTML pages were generated');
 assert.deepStrictEqual(generatedJsFiles, [], 'JavaScript assets were generated');
-console.log('PASS exactly eleven expected HTML pages');
+console.log('PASS exactly twelve expected HTML pages');
 console.log('PASS no JavaScript assets');
 
 const sitemap = await readFile(path.join(dist, 'sitemap.xml'), 'utf8');
@@ -144,7 +146,7 @@ for (const url of sitemapUrls) {
   assert.equal(parsed.hostname, 'www.cerrajeriadelpuertogandia.com', `Sitemap URL does not use production www host: ${url}`);
   assert.ok(parsed.pathname.endsWith('/'), `Sitemap URL has no trailing slash: ${url}`);
 }
-console.log('PASS sitemap contains exactly eleven HTTPS www URLs with trailing slashes');
+console.log('PASS sitemap contains exactly twelve HTTPS www URLs with trailing slashes');
 const outputText = await Promise.all(generatedHtmlFiles.map((file) => readFile(path.join(dist, file), 'utf8')));
 assert.ok(!outputText.join('\n').includes('github.io'), 'github.io URL found in generated HTML');
 console.log('PASS no github.io URLs in generated HTML');
@@ -182,7 +184,7 @@ const robots = await readFile(path.join(dist, 'robots.txt'), 'utf8');
 assert.match(robots, /^Allow:\s*\/\s*$/m);
 assert.ok(!/^Disallow:\s*\S+/m.test(robots), 'Unexpected crawl restriction');
 assert.ok(robots.includes(`Sitemap: ${domain}/sitemap.xml`));
-assert.equal(new Set(sitemapUrls).size, 11);
+assert.equal(new Set(sitemapUrls).size, 12);
 assert.ok(![sitemap, llms, robots].join('\n').includes('github.io'));
 console.log('PASS Daimús SEO, coverage, contact, breadcrumb, home, sitemap, llms and robots');
 
@@ -312,6 +314,94 @@ for (const page of pages.filter(({ name }) => !['Home', 'Piles', 'Seguridad en p
 }
 console.log('PASS Piles SEO, FAQ, schema, contact, integration and three exact approved reviews');
 console.log('PASS Piles unique content; only required arrival wording exempt', JSON.stringify(pilesUniqueness));
+
+// Strategic upgrade page: explicit acceptance criteria independent of its baseline.
+const upgradeHtml = await readFile(path.join(dist, 'actualizar-cerradura-puerta/index.html'), 'utf8');
+const upgrade = extract(upgradeHtml);
+const $upgrade = load(upgradeHtml);
+assert.equal(upgrade.title, 'Actualizar cerradura antigua sin cambiar la puerta | Cerrajería del Puerto');
+assert.deepStrictEqual(upgrade.description, ['¿Tienes una buena puerta pero una cerradura antigua? Descubre qué puedes actualizar sin cambiarla y pide presupuesto a Cerrajería del Puerto.']);
+assert.deepStrictEqual(upgrade.h1, ['¿Tienes una buena puerta pero una cerradura antigua?']);
+assert.equal(upgrade.faqs.length, 8);
+const upgradeNodes = upgrade.jsonLd.flatMap(schema => schema['@graph'] ?? [schema]);
+assert.deepStrictEqual(upgradeNodes.map(node => node['@type']).sort(), ['BreadcrumbList', 'FAQPage', 'WebPage']);
+assert.ok(!/"(?:Product|Offer|Review|AggregateRating|aggregateRating|price|availability)"/.test(JSON.stringify(upgrade.jsonLd)));
+assert.deepStrictEqual(upgrade.breadcrumb[0].itemListElement, [
+  { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${domain}/` },
+  { '@type': 'ListItem', position: 2, name: 'Actualizar cerradura sin cambiar la puerta', item: `${domain}/actualizar-cerradura-puerta/` },
+]);
+for (const [property, content] of Object.entries({ 'og:title': upgrade.title, 'og:description': upgrade.description[0], 'og:url': `${domain}/actualizar-cerradura-puerta/` })) {
+  assert.equal($upgrade(`meta[property="${property}"]`).attr('content'), content);
+}
+for (const word of ['Bombín', 'Escudo de seguridad', 'Cerradura', 'Puntos de cierre', 'Conservar la puerta', 'Pide presupuesto', 'Actualizar la seguridad paso a paso', 'Más de 20 años', 'Gandía', 'La Safor']) assert.ok(upgrade.visibleText.includes(word), `Missing static content: ${word}`);
+assert.ok(upgrade.phones.length && upgrade.phones.every(({ attributes }) => attributes.href === 'tel:+34687929669'));
+assert.ok(upgrade.whatsapp.length >= 4);
+for (const { attributes } of upgrade.whatsapp) {
+  const url = new URL(attributes.href);
+  assert.equal(url.pathname, '/34687929669');
+  assert.equal(url.searchParams.get('text'), 'Hola, quiero pedir presupuesto para actualizar la cerradura de mi puerta. Os envío unas fotos para que podáis ver lo que tengo instalado.');
+}
+const $guide = load(await readFile(path.join(dist, 'seguridad-puertas-cerraduras/index.html'), 'utf8'));
+for (const [$page, target] of [[$guide, '/actualizar-cerradura-puerta/'], [$upgrade, '/seguridad-puertas-cerraduras/']]) {
+  const contextual = $page(`main a[href="${target}"]`);
+  assert.ok(contextual.length && contextual.toArray().every(el => !$page(el).attr('rel')?.includes('nofollow')));
+}
+const guideContent = extract(await readFile(path.join(dist, 'seguridad-puertas-cerraduras/index.html'), 'utf8'));
+assert.ok(upgrade.faqs.every(faq => !guideContent.faqs.some(other => faq.question === other.question || faq.answer === other.answer)), 'Guide FAQ must not be copied');
+for (const page of pages.filter(page => page.name !== 'Actualizar cerradura')) {
+  const $other = load(await readFile(path.join(dist, page.output), 'utf8'));
+  const otherParagraphs = texts($other, 'main p');
+  assert.ok(texts($upgrade, 'main p').every(text => !otherParagraphs.includes(text)), `Upgrade paragraph copied from ${page.name}`);
+}
+assert.ok(llms.includes(`${domain}/actualizar-cerradura-puerta/`));
+assert.equal($home('main a[href="/actualizar-cerradura-puerta/"]').length, 0, 'Do not add a locality chip for the strategic page');
+const expectedAlts = [
+  'Esquema técnico de una puerta con bombín, escudo, cerradura y puntos de cierre',
+  'Puerta de madera conservada con bombín y herrajes de cerradura actualizados',
+  'Puerta de madera con cerradura multipunto y elementos de seguridad actualizados',
+  'Ejemplo de fotos del exterior y del canto de una puerta para revisar su cerradura',
+];
+assert.deepStrictEqual(upgrade.images.map(image => image.alt), expectedAlts);
+for (const [index, el] of $upgrade('img').toArray().entries()) {
+  const img = $upgrade(el);
+  assert.equal(img.attr('width'), '768');
+  assert.equal(img.attr('height'), '512');
+  assert.equal(img.attr('decoding'), 'async');
+  assert.equal(img.attr('title'), undefined);
+  if (index > 0) assert.equal(img.attr('loading'), 'lazy');
+  assert.deepStrictEqual(img.attr('srcset').split(',').map(candidate => Number(candidate.trim().split(/\s+/)[1].slice(0, -1))), [320, 480, 768, 1024]);
+  assert.ok(img.attr('sizes')?.includes('552px'));
+  assert.ok(!img.attr('src').endsWith(`${img.attr('src').split('/').at(-2)}.webp`), 'Do not load the master');
+}
+const mobileSource = $upgrade('picture source[media="(max-width: 520px)"]');
+assert.equal(mobileSource.length, 1);
+assert.equal(mobileSource.attr('width'), '768');
+assert.equal(mobileSource.attr('height'), '960');
+assert.deepStrictEqual(mobileSource.attr('srcset').split(',').map(candidate => candidate.trim().split('/').at(-1)), ['plano-tecnico-puerta-cerradura-mobile-320.webp 320w', 'plano-tecnico-puerta-cerradura-mobile-480.webp 480w', 'plano-tecnico-puerta-cerradura-mobile-768.webp 768w']);
+for (const el of $upgrade('[srcset]').toArray()) {
+  for (const candidate of $upgrade(el).attr('srcset').split(',')) {
+    const url = candidate.trim().split(/\s+/)[0];
+    assert.ok(url.startsWith('/images/actualizar-cerradura/'));
+    await readFile(path.join(dist, url));
+  }
+}
+const approvedAssets = JSON.parse(await readFile(path.join(root, 'tests/fixtures/actualizar-cerradura-assets.json'), 'utf8'));
+assert.equal(approvedAssets.length, 23);
+for (const asset of approvedAssets) {
+  const bytes = await readFile(path.join(dist, 'images/actualizar-cerradura', asset.file));
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), asset.sha256, `Approved asset modified: ${asset.file}`);
+}
+for (const page of pages) {
+  const $ = load(await readFile(path.join(dist, page.output), 'utf8'));
+  for (const target of ['/seguridad-puertas-cerraduras/', '/actualizar-cerradura-puerta/']) {
+    const links = $(`body > footer a[href="${target}"]`);
+    assert.equal(links.length, 1, `${page.name}: missing useful footer link`);
+    assert.ok(!links.attr('rel')?.includes('nofollow'));
+  }
+  assert.equal($('body > footer a[href*="facebook.com"]').length, 1);
+  assert.equal($('body > footer a[href*="instagram.com"]').length, 1);
+}
+console.log('PASS upgrade SEO, static content, FAQ, justified schema, distinct content, contact, contextual links, footer, responsive images and 23 original asset hashes');
 
 // Resolve local HTML links, fragments and assets without contacting production.
 for (const page of pages) {

@@ -1,0 +1,12 @@
+---
+interface Props { name: string; alt: string; hero?: boolean; }
+const { name, alt, hero = false } = Astro.props;
+const base = `/images/actualizar-cerradura/${name}/${name}`;
+const srcset = [320, 480, 768, 1024].map(width => `${base}-${width}.webp ${width}w`).join(', ');
+const sizes = '(max-width: 520px) calc(100vw - 26px), (max-width: 860px) calc(100vw - 36px), (max-width: 1176px) calc((100vw - 72px) / 2), 552px';
+---
+<picture>
+  {hero && <source media="(max-width: 520px)" srcset={[320, 480, 768].map(width => `${base}-mobile-${width}.webp ${width}w`).join(', ')} sizes="calc(100vw - 26px)" width="768" height="960" />}
+  <img src={`${base}-768.webp`} srcset={srcset} sizes={sizes} width="768" height="512" alt={alt} loading={hero ? 'eager' : 'lazy'} fetchpriority={hero ? 'high' : undefined} decoding="async" />
+</picture>
+<style>picture{display:block}img{display:block;width:100%;height:auto}</style>
