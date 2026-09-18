@@ -18,6 +18,7 @@ const pages = [
   { name: 'Seguridad en puertas y cerraduras', fixture: 'seguridad-puertas-cerraduras.html', output: 'seguridad-puertas-cerraduras/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/seguridad-puertas-cerraduras/', validateFaq: true, allowClientJavaScript: true },
   { name: 'Daimús', fixture: 'daimus.html', output: 'daimus/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/daimus/', validateFaq: true },
   { name: 'Bellreguard', fixture: 'bellreguard.html', output: 'bellreguard/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/bellreguard/', validateFaq: true },
+  { name: 'Piles', fixture: 'piles.html', output: 'piles/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/piles/', validateFaq: true },
 ];
 
 const normalize = (value = '') => value.replace(/\s+/g, ' ').trim();
@@ -131,7 +132,7 @@ async function inspectOutput(directory) {
 await inspectOutput(dist);
 assert.deepStrictEqual(generatedHtmlFiles.sort(), pages.map(({ output }) => output).sort(), 'Unexpected Astro HTML pages were generated');
 assert.deepStrictEqual(generatedJsFiles, [], 'JavaScript assets were generated');
-console.log('PASS exactly ten expected HTML pages');
+console.log('PASS exactly eleven expected HTML pages');
 console.log('PASS no JavaScript assets');
 
 const sitemap = await readFile(path.join(dist, 'sitemap.xml'), 'utf8');
@@ -143,7 +144,7 @@ for (const url of sitemapUrls) {
   assert.equal(parsed.hostname, 'www.cerrajeriadelpuertogandia.com', `Sitemap URL does not use production www host: ${url}`);
   assert.ok(parsed.pathname.endsWith('/'), `Sitemap URL has no trailing slash: ${url}`);
 }
-console.log('PASS sitemap contains exactly ten HTTPS www URLs with trailing slashes');
+console.log('PASS sitemap contains exactly eleven HTTPS www URLs with trailing slashes');
 const outputText = await Promise.all(generatedHtmlFiles.map((file) => readFile(path.join(dist, file), 'utf8')));
 assert.ok(!outputText.join('\n').includes('github.io'), 'github.io URL found in generated HTML');
 console.log('PASS no github.io URLs in generated HTML');
@@ -181,7 +182,7 @@ const robots = await readFile(path.join(dist, 'robots.txt'), 'utf8');
 assert.match(robots, /^Allow:\s*\/\s*$/m);
 assert.ok(!/^Disallow:\s*\S+/m.test(robots), 'Unexpected crawl restriction');
 assert.ok(robots.includes(`Sitemap: ${domain}/sitemap.xml`));
-assert.equal(new Set(sitemapUrls).size, 10);
+assert.equal(new Set(sitemapUrls).size, 11);
 assert.ok(![sitemap, llms, robots].join('\n').includes('github.io'));
 console.log('PASS Daimús SEO, coverage, contact, breadcrumb, home, sitemap, llms and robots');
 
@@ -190,7 +191,7 @@ const actualReviews = $daimus('#opiniones .review').map((_, el) => ({ author: $d
 assert.deepStrictEqual(actualReviews, expectedReviews, 'Review authors and texts must match supplied screenshots exactly');
 const contentNormalize = (text) => normalize(text.replace(/[“”«»]/g, '"').replace(/[‘’]/g, "'"));
 const texts = ($, selector) => $(selector).map((_, el) => contentNormalize($(el).text())).get();
-// The user requires this exact shared wording on both landing pages.
+// The user requires this exact shared wording on these landing pages.
 // Only this paragraph is exempt, and only inside the arrival card.
 const arrivalDisclaimer = 'El tráfico, el punto exacto y la disponibilidad en el momento de la llamada pueden hacer variar este tiempo.';
 const localParagraphs = ($) => $('main p').toArray().filter((el) => !($(el).closest('.gandia-arrival').length && contentNormalize($(el).text()) === arrivalDisclaimer)).map((el) => contentNormalize($(el).text()));
@@ -260,12 +261,57 @@ for (const page of pages) {
   const requiredSharedParagraphs = texts($other, '#zona .gandia-arrival p').filter((text) => text === arrivalDisclaimer).length;
   bellreguardUniqueness.push({ page: page.name, identicalParagraphs: 0, identicalH2: 0, identicalFaqs: 0, requiredSharedParagraphs });
 }
-assert.equal(allReviews.length, 28, 'Expected 28 visible reviews across the site');
+assert.equal(allReviews.length, 31, 'Expected 31 visible reviews across the site');
 assert.equal(new Set(allReviews.map(({ text }) => text)).size, allReviews.length, 'Repeated review text anywhere in the site');
 assert.equal(new Set(allReviews.map(({ author }) => author)).size, allReviews.length, 'Repeated review author or label anywhere in the site');
 console.log('PASS Bellreguard SEO, contact, breadcrumb, areaServed, home, sitemap, llms and robots');
-console.log('PASS exactly 28 visible reviews = 28 unique texts and authors/labels; 3 approved Bellreguard reviews');
+console.log('PASS exactly 31 visible reviews = 31 unique texts and authors/labels; 3 approved Bellreguard reviews');
 console.log('PASS Bellreguard unique content; only required arrival wording exempt', JSON.stringify(bellreguardUniqueness));
+
+const pilesHtml = await readFile(path.join(dist, 'piles/index.html'), 'utf8');
+const piles = extract(pilesHtml);
+const $piles = load(pilesHtml);
+assert.equal(piles.title, 'Cerrajero 24h en Piles | Cerrajería del Puerto');
+assert.deepStrictEqual(piles.description, ['Cerrajero 24h en Piles. Apertura de puertas, cambio de cerraduras y bombines. Llegada habitual de 7 minutos.']);
+assert.deepStrictEqual(piles.h1, ['Cerrajero 24h en Piles']);
+assert.deepStrictEqual(piles.areaServed, [{ '@type': 'City', name: 'Piles' }, { '@type': 'Place', name: 'Playa de Piles' }]);
+assert.deepStrictEqual(piles.breadcrumb[0]?.itemListElement, [
+  { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${domain}/` },
+  { '@type': 'ListItem', position: 2, name: 'Cerrajero en Piles', item: `${domain}/piles/` },
+]);
+for (const [property, content] of Object.entries({ 'og:title': piles.title, 'og:description': piles.description[0], 'og:url': `${domain}/piles/` })) {
+  assert.equal($piles(`meta[property="${property}"]`).attr('content'), content);
+}
+assert.ok(piles.phones.length && piles.phones.every(({ attributes }) => attributes.href === 'tel:+34687929669'));
+assert.ok(piles.whatsapp.length && piles.whatsapp.every(({ attributes }) => new URL(attributes.href).pathname === '/34687929669'));
+assert.equal(piles.faqs.length, 7);
+assert.deepStrictEqual(texts($piles, '#zona .areas span'), ['Piles', 'Playa de Piles']);
+assert.ok(piles.visibleText.includes('Llegada habitual: 7 minutos'));
+assert.equal($piles('#zona .gandia-arrival p').text(), arrivalDisclaimer);
+assert.ok(!/menos de 7 minutos|7 minutos garantizados/i.test(piles.visibleText));
+assert.ok(!/"(?:Product|Offer|Review|AggregateRating|aggregateRating)"/.test(JSON.stringify(piles.jsonLd)));
+assert.equal($home('.areas a[href="/piles/"]').length, 1);
+assert.ok(llms.includes(`${domain}/piles/`) && llms.includes('Piles'));
+const approvedPilesReviews = JSON.parse(await readFile(path.join(root, 'tests/fixtures/piles-reviews.json'), 'utf8'));
+const pilesReviews = $piles('#opiniones .review').map((_, el) => ({ author: $piles(el).find('footer strong').text(), text: $piles(el).find('blockquote').text() })).get();
+assert.equal(pilesReviews.length, 3);
+assert.deepStrictEqual(pilesReviews, approvedPilesReviews, 'Piles reviews must match the approved transcription exactly');
+assert.deepStrictEqual(texts($piles, '#opiniones .review-stars'), ['★★★★★', '★★★★★', '★★★★★']);
+
+const pilesUniqueness = [];
+for (const page of pages.filter(({ name }) => !['Home', 'Piles', 'Seguridad en puertas y cerraduras'].includes(name))) {
+  const $other = load(await readFile(path.join(dist, page.output), 'utf8'));
+  const identicalParagraphs = localParagraphs($piles).filter((text) => localParagraphs($other).includes(text));
+  const identicalH2 = texts($piles, 'main h2').filter((text) => texts($other, 'main h2').includes(text));
+  const identicalFaqs = texts($piles, '#faq summary, #faq details p').filter((text) => texts($other, '#faq summary, #faq details p').includes(text));
+  assert.deepStrictEqual(identicalParagraphs, [], 'Piles: identical paragraphs with ' + page.name);
+  assert.deepStrictEqual(identicalH2, [], 'Piles: identical H2 with ' + page.name);
+  assert.deepStrictEqual(identicalFaqs, [], 'Piles: identical FAQs with ' + page.name);
+  const requiredSharedParagraphs = texts($other, '#zona .gandia-arrival p').filter((text) => text === arrivalDisclaimer).length;
+  pilesUniqueness.push({ page: page.name, identicalParagraphs: 0, identicalH2: 0, identicalFaqs: 0, requiredSharedParagraphs });
+}
+console.log('PASS Piles SEO, FAQ, schema, contact, integration and three exact approved reviews');
+console.log('PASS Piles unique content; only required arrival wording exempt', JSON.stringify(pilesUniqueness));
 
 // Resolve local HTML links, fragments and assets without contacting production.
 for (const page of pages) {
