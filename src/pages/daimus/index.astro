@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import MobileContactBar from '../../components/MobileContactBar.astro';
+import { business } from '../../data/business';
+
+const canonical = `${business.domain}/daimus/`;
+const title = 'Cerrajero 24h en Daimús | Cerrajería del Puerto';
+const description = 'Cerrajero 24h en Daimús. Apertura de puertas, cambio de cerraduras y bombines. Llegada habitual de 10 minutos.';
+const faqs = [
+  { question: '¿Puedo solicitar un cerrajero en Daimús durante la noche?', answer: 'Puedes llamar a Cerrajería del Puerto las 24 horas si no puedes acceder a tu vivienda en Daimús o dejar la puerta cerrada. Al atenderte, confirmamos la disponibilidad para tu aviso.' },
+  { question: '¿Los 10 minutos de llegada son un plazo fijo?', answer: 'No es un plazo garantizado: la llegada habitual a Daimús es de 10 minutos. El tráfico, el punto exacto y la disponibilidad en el momento de la llamada pueden hacer variar este tiempo.' },
+  { question: '¿También os desplazáis a Playa de Daimús?', answer: 'La cobertura incluye Daimús y Playa de Daimús. Indica la dirección del acceso que necesita atención para que podamos organizar el desplazamiento.' },
+  { question: '¿Qué necesitáis saber para abrir la puerta de mi apartamento?', answer: 'Dinos si has perdido las llaves, se han quedado dentro o la cerradura ha dejado de funcionar, y si la puerta tiene echadas las vueltas. Revisamos el cierre antes de elegir la forma de apertura, procurando evitar daños siempre que sea posible.' },
+  { question: '¿Hay que cambiar toda la cerradura si quiero otras llaves?', answer: 'En algunos casos basta con sustituir el bombín para que las llaves anteriores dejen de abrir. Comprobamos el mecanismo y su estado para explicarte si conviene cambiar el bombín o la cerradura completa, con el precio antes de intervenir.' },
+  { question: '¿Qué fotos os envío por WhatsApp antes de acudir a Daimús?', answer: 'Una imagen nítida de la cerradura y de la puerta ayuda a identificar el acceso. Acompáñala de la ubicación en Daimús o Playa de Daimús y de lo que ocurre al usar la llave; no necesitas desmontar ninguna pieza.' },
+  { question: '¿Podéis revisar el acceso de una comunidad o una segunda residencia?', answer: 'Trabajamos en puertas de viviendas habituales, apartamentos, segundas residencias y comunidades de ambas zonas. Cuéntanos si el problema afecta a tu puerta particular o a un acceso compartido para valorar el trabajo necesario.' },
+];
+// Transcripción literal de las capturas de Google aportadas por el usuario.
+const reviews = [
+  { author: 'Carles Martinez', text: 'Les avisamos por un problema con las llaves del apartamento durante nuestras vacaciones y lo solucionaron con rapidez, cercanía y eficiencia. El trato humano inmejorable. Lo recomendaría con total confianza.' },
+  { author: 'MAIdA', text: 'Excelencia profesional. Enhorabuena por contar con profesionales de esta calidad, en concreto ha sido Gustavo quien ha realizado el trabajo, Gracias,' },
+  { author: 'ALEJANDRO MANUEL GALLART GRAS', text: 'Fue todo super rápido y bien, muy atento y profesional, muy recomendable.' },
+];
+const checks = [
+  ['Un contacto para resolver tus dudas.', 'Hablas con Cerrajería del Puerto sobre tu puerta, sin pasar el aviso de una centralita a otra.'],
+  ['Daimús está dentro de nuestro recorrido.', 'Atendemos también Playa de Daimús; concretar la dirección nos permite situar la intervención.'],
+  ['Más de 20 años trabajando con cerraduras.', 'Aplicamos esa experiencia al diagnóstico, tanto en una puerta de entrada como en un acceso comunitario.'],
+  ['Puedes avisar a cualquier hora.', 'La atención de urgencias 24h permite consultar un bloqueo aunque suceda fuera del horario habitual.'],
+  ['Decides con el precio explicado.', 'Antes de empezar aclaramos el trabajo propuesto y su coste para que puedas valorarlo.'],
+  ['Cercanía con una previsión realista.', 'Al llamar podemos orientarte sobre el desplazamiento según dónde estemos atendiendo en ese momento.'],
+];
+const jsonLd = [{ '@context': 'https://schema.org', '@graph': [
+  { '@type': ['Locksmith', 'LocalBusiness'], '@id': `${business.domain}/#business`, name: business.name, url: canonical, telephone: business.phone.e164, description, address: { '@type': 'PostalAddress', ...business.address, display: undefined }, areaServed: [{ '@type': 'City', name: 'Daimús' }, { '@type': 'Place', name: 'Playa de Daimús' }], openingHoursSpecification: { '@type': 'OpeningHoursSpecification', ...business.openingHoursSpecification }, sameAs: [business.googleMaps.url, business.social.facebook, business.social.instagram] },
+  { '@type': 'WebSite', '@id': `${business.domain}/#website`, url: `${business.domain}/`, name: business.name, inLanguage: 'es-ES', publisher: { '@id': `${business.domain}/#business` } },
+  { '@type': 'FAQPage', '@id': `${canonical}#faq`, mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) },
+] }, { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: `${business.domain}/` }, { '@type': 'ListItem', position: 2, name: 'Cerrajero en Daimús', item: canonical }] }];
+---
+
+<BaseLayout title={title} description={description} canonical={canonical} robots="index,follow" themeColor="#101820" openGraph={{ type: 'website', locale: 'es_ES', title, description, url: canonical }} twitter={{ card: 'summary' }}>
+  <div class="topbar"><strong>Cerrajero de urgencias 24h</strong> · Daimús y Playa de Daimús</div>
+  <Header brandHref="/" subtitle="Daimús · Playa de Daimús" />
+  <main id="inicio">
+    <section class="hero"><div class="wrap hero-grid"><div>
+      <span class="eyebrow"><span class="dot"></span> Atención directa en Daimús · 24 horas</span>
+      <h1>Cerrajero 24h en Daimús</h1>
+      <p>Quedarte sin acceso a casa o al apartamento puede cambiarte el día. En Cerrajería del Puerto atendemos tu llamada y nos desplazamos a Daimús y Playa de Daimús para abrir la puerta o resolver el fallo del cierre.</p>
+      <div class="actions"><a class="btn btn-primary" href={`tel:${business.phone.e164}`}>☎ Llamar ahora · {business.phone.display}</a><a class="btn btn-secondary" href={business.whatsapp.heroUrl} rel="noopener" target="_blank">Enviar foto por WhatsApp</a></div>
+      <div class="proofline"><span>✓ <b>Llegada habitual: 10 minutos</b></span><span>✓ <b>Más de 20 años</b> de experiencia</span><span>✓ Urgencias 24h</span></div>
+    </div><aside aria-label="Contacto urgente" class="urgency-card"><div class="label">La ayuda empieza al llamar</div><h2>¿Estás fuera o no puedes dejar cerrado?</h2><p>Indica dónde está la puerta y qué te impide usarla. Te orientamos sobre el aviso y la disponibilidad para acudir.</p><div class="phonebox"><small>Teléfono 24h</small><a href={`tel:${business.phone.e164}`}>{business.phone.display}</a></div><a class="btn btn-primary" href={`tel:${business.phone.e164}`} style="width:100%">Hablar con el cerrajero</a><p class="mini">Si puedes enviar una foto, la revisamos contigo.</p></aside></div></section>
+
+    <section class="section"><div class="wrap"><div class="section-head"><span class="kicker">Preparamos tu aviso</span><h2 class="section-title">Los detalles de tu acceso nos ayudan a intervenir.</h2><p>Unas llaves olvidadas y un mecanismo averiado pueden parecer el mismo problema desde fuera. Con unos datos concretos podemos orientar la visita a tu vivienda en Daimús.</p></div><div class="steps">
+      <article class="step"><div class="num">1</div><h3>Señala dónde acudir</h3><p>Facilita la dirección en Daimús o Playa de Daimús y cómo localizar la puerta afectada.</p></article>
+      <article class="step"><div class="num">2</div><h3>Cuenta lo que ha cambiado</h3><p>Explica si falta la llave, se atasca al girar o el cierre ha dejado de encajar.</p></article>
+      <article class="step"><div class="num">3</div><h3>Aclara el trabajo con nosotros</h3><p>Valoramos qué puede necesitar el acceso y te explicamos el coste antes de intervenir.</p></article>
+      <article class="step"><div class="num">4</div><h3>Comprueba el resultado</h3><p>Al terminar revisamos el funcionamiento de la puerta y de las llaves contigo.</p></article>
+    </div></div></section>
+
+    <section class="section white" id="servicios"><div class="wrap"><div class="section-head"><span class="kicker">Servicios de cerrajería en Daimús</span><h2 class="section-title">Abrir, renovar las llaves o reparar el cierre.</h2><p>La intervención depende de lo que necesitas recuperar: la entrada a tu casa, el control de las llaves o la posibilidad de dejar el apartamento cerrado.</p></div><div class="services">
+      <article class="service"><h3>Apertura de puertas</h3><p>Si te has quedado fuera de una vivienda en Daimús, examinamos la puerta y la cerradura para escoger la técnica de apertura adecuada a su estado.</p></article>
+      <article class="service"><h3>Cambio de cerraduras y bombines</h3><p>Al perder unas llaves o renovar el acceso a una segunda residencia, revisamos si basta con cambiar el bombín o si el mecanismo necesita una sustitución completa.</p></article>
+      <article class="service"><h3>Problemas de acceso y urgencias 24h</h3><p>Una puerta de entrada que no cierra o un portal bloqueado necesitan atención. Recibimos avisos a cualquier hora en Daimús y Playa de Daimús.</p></article>
+    </div></div></section>
+
+    <section class="section" id="opiniones"><div class="wrap"><div class="section-head"><span class="kicker">Opiniones reales</span><h2 class="section-title">Clientes que ya han contado con Cerrajería del Puerto.</h2><p>Estas reseñas de nuestra ficha de Google hablan del servicio y del trato recibido. Puedes consultar allí las experiencias publicadas por nuestros clientes.</p></div><div class="reviews-summary"><div><div aria-label="Valoración de 4,8 sobre 5 en Google" class="stars">★★★★★</div><strong>4,8/5 en Google · Más de 180 reseñas</strong><p>Consulta las valoraciones del negocio en su ficha pública.</p></div><a class="google-link" href={business.googleMaps.url} rel="noopener noreferrer" target="_blank">Ver en Google →</a></div><div class="reviews">{reviews.map(({ author, text }) => <article class="review"><div aria-hidden="true" class="review-stars">★★★★★</div><blockquote>{text}</blockquote><footer><strong>{author}</strong><span class="google-badge">Opinión en Google</span></footer></article>)}</div></div></section>
+
+    <section class="section" id="zona"><div class="wrap trust"><div class="trust-panel"><h3>Por qué llamar a una cerrajería local</h3><div class="checks">{checks.map(([heading, text]) => <div class="check"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg><span><strong>{heading}</strong> {text}</span></div>)}</div></div><div class="local"><span class="kicker">Daimús y Playa de Daimús</span><h3>Tu puerta, tanto si vives aquí como si acabas de llegar.</h3><p>En tu vivienda habitual necesitas que la entrada responda cada día. Si vienes a una segunda residencia en Playa de Daimús, el problema puede surgir nada más llegar con las maletas o al cerrar antes de irte. Atendemos ambos casos, además de apartamentos y accesos de comunidades.</p><p>Para un portal compartido, dinos si el fallo está en la entrada del edificio o en la puerta de la vivienda: así centramos la revisión en el cierre que realmente impide el paso.</p><div class="gandia-arrival" style="margin-top:20px;padding:18px 20px;background:rgba(255,255,255,.72);border:1px solid rgba(16,24,32,.08);border-radius:16px"><div style="font-size:.78rem;text-transform:uppercase;letter-spacing:.11em;font-weight:850;color:#8a6513">Desplazamiento a Daimús</div><strong style="display:block;font-size:1.25rem;margin-top:4px">Llegada habitual: 10 minutos</strong><p style="margin:6px 0 0;color:var(--muted);font-size:.9rem">El tráfico, el punto exacto y la disponibilidad en el momento de la llamada pueden hacer variar este tiempo.</p></div><div class="areas"><span>Daimús</span><span>Playa de Daimús</span></div></div></div></section>
+
+    <section class="section white" id="faq"><div class="wrap faq"><div class="section-head"><span class="kicker">Preguntas frecuentes</span><h2 class="section-title">Resolvemos tus dudas antes de acudir a Daimús.</h2></div>{faqs.map(({ question, answer }) => <details><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
+    <section class="cta"><div class="wrap cta-row"><div><h2>Vuelve a entrar y a cerrar con tranquilidad.</h2><p>Cuéntanos qué necesitas en Daimús o Playa de Daimús y organizamos la atención.</p></div><a class="btn" href={`tel:${business.phone.e164}`}>☎ {business.phone.display}</a></div></section>
+  </main>
+  <Footer /><MobileContactBar />
+  {jsonLd.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+</BaseLayout>
