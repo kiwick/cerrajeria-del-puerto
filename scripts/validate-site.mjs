@@ -17,6 +17,7 @@ const pages = [
   { name: 'Xeraco', fixture: 'xeraco.html', output: 'xeraco/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/xeraco/', validateFaq: true },
   { name: 'Seguridad en puertas y cerraduras', fixture: 'seguridad-puertas-cerraduras.html', output: 'seguridad-puertas-cerraduras/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/seguridad-puertas-cerraduras/', validateFaq: true, allowClientJavaScript: true },
   { name: 'Daimús', fixture: 'daimus.html', output: 'daimus/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/daimus/', validateFaq: true },
+  { name: 'Bellreguard', fixture: 'bellreguard.html', output: 'bellreguard/index.html', url: 'https://www.cerrajeriadelpuertogandia.com/bellreguard/', validateFaq: true },
 ];
 
 const normalize = (value = '') => value.replace(/\s+/g, ' ').trim();
@@ -130,7 +131,7 @@ async function inspectOutput(directory) {
 await inspectOutput(dist);
 assert.deepStrictEqual(generatedHtmlFiles.sort(), pages.map(({ output }) => output).sort(), 'Unexpected Astro HTML pages were generated');
 assert.deepStrictEqual(generatedJsFiles, [], 'JavaScript assets were generated');
-console.log('PASS exactly nine expected HTML pages');
+console.log('PASS exactly ten expected HTML pages');
 console.log('PASS no JavaScript assets');
 
 const sitemap = await readFile(path.join(dist, 'sitemap.xml'), 'utf8');
@@ -142,7 +143,7 @@ for (const url of sitemapUrls) {
   assert.equal(parsed.hostname, 'www.cerrajeriadelpuertogandia.com', `Sitemap URL does not use production www host: ${url}`);
   assert.ok(parsed.pathname.endsWith('/'), `Sitemap URL has no trailing slash: ${url}`);
 }
-console.log('PASS sitemap contains exactly nine HTTPS www URLs with trailing slashes');
+console.log('PASS sitemap contains exactly ten HTTPS www URLs with trailing slashes');
 const outputText = await Promise.all(generatedHtmlFiles.map((file) => readFile(path.join(dist, file), 'utf8')));
 assert.ok(!outputText.join('\n').includes('github.io'), 'github.io URL found in generated HTML');
 console.log('PASS no github.io URLs in generated HTML');
@@ -180,7 +181,7 @@ const robots = await readFile(path.join(dist, 'robots.txt'), 'utf8');
 assert.match(robots, /^Allow:\s*\/\s*$/m);
 assert.ok(!/^Disallow:\s*\S+/m.test(robots), 'Unexpected crawl restriction');
 assert.ok(robots.includes(`Sitemap: ${domain}/sitemap.xml`));
-assert.equal(new Set(sitemapUrls).size, 9);
+assert.equal(new Set(sitemapUrls).size, 10);
 assert.ok(![sitemap, llms, robots].join('\n').includes('github.io'));
 console.log('PASS Daimús SEO, coverage, contact, breadcrumb, home, sitemap, llms and robots');
 
@@ -189,6 +190,10 @@ const actualReviews = $daimus('#opiniones .review').map((_, el) => ({ author: $d
 assert.deepStrictEqual(actualReviews, expectedReviews, 'Review authors and texts must match supplied screenshots exactly');
 const contentNormalize = (text) => normalize(text.replace(/[“”«»]/g, '"').replace(/[‘’]/g, "'"));
 const texts = ($, selector) => $(selector).map((_, el) => contentNormalize($(el).text())).get();
+// The user requires this exact shared wording on both landing pages.
+// Only this paragraph is exempt, and only inside the arrival card.
+const arrivalDisclaimer = 'El tráfico, el punto exacto y la disponibilidad en el momento de la llamada pueden hacer variar este tiempo.';
+const localParagraphs = ($) => $('main p').toArray().filter((el) => !($(el).closest('.gandia-arrival').length && contentNormalize($(el).text()) === arrivalDisclaimer)).map((el) => contentNormalize($(el).text()));
 const uniqueContent = [];
 for (const page of pages.filter(({ name }) => name !== 'Daimús' && name !== 'Seguridad en puertas y cerraduras')) {
   const $other = load(await readFile(path.join(dist, page.output), 'utf8'));
@@ -199,7 +204,7 @@ for (const page of pages.filter(({ name }) => name !== 'Daimús' && name !== 'Se
     assert.ok(!previousAuthors.includes(contentNormalize(review.author)), `Review author reused in ${page.name}`);
   }
   if (page.name === 'Home') continue;
-  const duplicateParagraphs = texts($daimus, 'main p').filter((text) => texts($other, 'main p').includes(text));
+  const duplicateParagraphs = localParagraphs($daimus).filter((text) => localParagraphs($other).includes(text));
   const duplicateHeadings = texts($daimus, 'main h2').filter((text) => texts($other, 'main h2').includes(text));
   const duplicateFaqs = texts($daimus, '#faq summary, #faq details p').filter((text) => texts($other, '#faq summary, #faq details p').includes(text));
   assert.deepStrictEqual(duplicateParagraphs, [], `Identical paragraphs in ${page.name}`);
@@ -209,6 +214,58 @@ for (const page of pages.filter(({ name }) => name !== 'Daimús' && name !== 'Se
 }
 console.log('PASS three exact reviews, no reused authors or texts');
 console.log('PASS unique content', JSON.stringify(uniqueContent));
+
+const bellreguardHtml = await readFile(path.join(dist, 'bellreguard/index.html'), 'utf8');
+const bellreguard = extract(bellreguardHtml);
+const $bellreguard = load(bellreguardHtml);
+assert.equal(bellreguard.title, 'Cerrajero 24h en Bellreguard | Cerrajería del Puerto');
+assert.deepStrictEqual(bellreguard.description, ['Cerrajero 24h en Bellreguard. Apertura de puertas, cambio de cerraduras y bombines. Llegada habitual de 5 minutos.']);
+assert.deepStrictEqual(bellreguard.h1, ['Cerrajero 24h en Bellreguard']);
+assert.deepStrictEqual(bellreguard.areaServed, [{ '@type': 'City', name: 'Bellreguard' }]);
+assert.deepStrictEqual(bellreguard.breadcrumb[0]?.itemListElement, [
+  { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${domain}/` },
+  { '@type': 'ListItem', position: 2, name: 'Cerrajero en Bellreguard', item: `${domain}/bellreguard/` },
+]);
+for (const [property, content] of Object.entries({ 'og:title': bellreguard.title, 'og:description': bellreguard.description[0], 'og:url': `${domain}/bellreguard/` })) {
+  assert.equal($bellreguard(`meta[property="${property}"]`).attr('content'), content);
+}
+assert.ok(bellreguard.phones.length && bellreguard.phones.every(({ attributes }) => attributes.href === 'tel:+34687929669'));
+assert.ok(bellreguard.whatsapp.length && bellreguard.whatsapp.every(({ attributes }) => new URL(attributes.href).pathname === '/34687929669'));
+assert.equal(bellreguard.faqs.length, 7);
+assert.deepStrictEqual(texts($bellreguard, '#zona .areas span'), ['Bellreguard', 'Playa de Bellreguard']);
+assert.ok(bellreguard.visibleText.includes('Llegada habitual: 5 minutos'));
+assert.equal($bellreguard('#zona .gandia-arrival p').text(), arrivalDisclaimer);
+assert.ok(!/menos de 5 minutos|5 minutos garantizados/i.test(bellreguard.visibleText));
+assert.ok(!/"(?:Product|Offer|Review|AggregateRating|aggregateRating)"/.test(JSON.stringify(bellreguard.jsonLd)));
+assert.equal($home('.areas a[href="/bellreguard/"]').length, 1);
+assert.ok(llms.includes(`${domain}/bellreguard/`) && llms.includes('Bellreguard'));
+const approvedBellreguardReviews = JSON.parse(await readFile(path.join(root, 'tests/fixtures/bellreguard-reviews.json'), 'utf8'));
+const bellreguardReviews = $bellreguard('#opiniones .review').map((_, el) => ({ author: $bellreguard(el).find('footer strong').text(), text: $bellreguard(el).find('blockquote').text() })).get();
+assert.equal(bellreguardReviews.length, 3);
+assert.deepStrictEqual(bellreguardReviews, approvedBellreguardReviews, 'Bellreguard reviews must match the approved transcription exactly');
+assert.deepStrictEqual(texts($bellreguard, '#opiniones .review-stars'), ['★★★★★', '★★★★★', '★★★★★']);
+
+const bellreguardUniqueness = [];
+const allReviews = [];
+for (const page of pages) {
+  const $other = load(await readFile(path.join(dist, page.output), 'utf8'));
+  $other('#opiniones .review').each((_, el) => allReviews.push({ page: page.name, author: contentNormalize($other(el).find('footer strong').text()), text: contentNormalize($other(el).find('blockquote').text()).replace(/^"|"$/g, '') }));
+  if (['Home', 'Bellreguard', 'Seguridad en puertas y cerraduras'].includes(page.name)) continue;
+  const identicalParagraphs = localParagraphs($bellreguard).filter((text) => localParagraphs($other).includes(text));
+  const identicalH2 = texts($bellreguard, 'main h2').filter((text) => texts($other, 'main h2').includes(text));
+  const identicalFaqs = texts($bellreguard, '#faq summary, #faq details p').filter((text) => texts($other, '#faq summary, #faq details p').includes(text));
+  assert.deepStrictEqual(identicalParagraphs, [], `Bellreguard: identical paragraphs with ${page.name}`);
+  assert.deepStrictEqual(identicalH2, [], `Bellreguard: identical H2 with ${page.name}`);
+  assert.deepStrictEqual(identicalFaqs, [], `Bellreguard: identical FAQs with ${page.name}`);
+  const requiredSharedParagraphs = texts($other, '#zona .gandia-arrival p').filter((text) => text === arrivalDisclaimer).length;
+  bellreguardUniqueness.push({ page: page.name, identicalParagraphs: 0, identicalH2: 0, identicalFaqs: 0, requiredSharedParagraphs });
+}
+assert.equal(allReviews.length, 28, 'Expected 28 visible reviews across the site');
+assert.equal(new Set(allReviews.map(({ text }) => text)).size, allReviews.length, 'Repeated review text anywhere in the site');
+assert.equal(new Set(allReviews.map(({ author }) => author)).size, allReviews.length, 'Repeated review author or label anywhere in the site');
+console.log('PASS Bellreguard SEO, contact, breadcrumb, areaServed, home, sitemap, llms and robots');
+console.log('PASS exactly 28 visible reviews = 28 unique texts and authors/labels; 3 approved Bellreguard reviews');
+console.log('PASS Bellreguard unique content; only required arrival wording exempt', JSON.stringify(bellreguardUniqueness));
 
 // Resolve local HTML links, fragments and assets without contacting production.
 for (const page of pages) {
